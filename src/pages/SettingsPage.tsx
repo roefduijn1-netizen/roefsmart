@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Save, Image as ImageIcon, Loader2, Bell, AlertCircle, Share2, Info } from 'lucide-react';
+import { Save, Image as ImageIcon, Loader2, Bell, AlertCircle, Share2, Info, Download } from 'lucide-react';
 import { api } from '@/lib/api-client';
 import { User } from '@shared/types';
 import { AurumLayout } from '@/components/layout/AurumLayout';
@@ -174,15 +174,25 @@ export function SettingsPage() {
               </div>
               <div className="flex justify-between items-center pt-2">
                 <span className="text-muted-foreground text-sm">Deel deze app</span>
-                <Button 
+                <Button
                   onClick={handleShare}
-                  variant="outline" 
+                  variant="outline"
                   size="sm"
                   className="luxury-button-outline h-9 text-xs"
                 >
                   <Share2 className="w-3.5 h-3.5 mr-2" />
                   Delen
                 </Button>
+              </div>
+              {/* Installation Tip */}
+              <div className="border-t border-white/5 pt-4 mt-2">
+                <div className="flex items-center gap-2 mb-2">
+                  <Download className="w-4 h-4 text-amber-500" />
+                  <span className="text-sm font-medium text-foreground">Installatie Tip</span>
+                </div>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Voor de beste ervaring: Tik op de deel-knop in je browser en kies 'Zet op beginscherm' om ROEFSMART als app te installeren.
+                </p>
               </div>
             </div>
           </div>
