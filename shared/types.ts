@@ -4,16 +4,16 @@ export interface ApiResponse<T = unknown> {
   error?: string;
 }
 export type DifficultyLevel = 1 | 2 | 3 | 4 | 5;
-export type Subject = 
-  | 'Mathematics' 
-  | 'Physics' 
-  | 'Chemistry' 
-  | 'Biology' 
-  | 'History' 
-  | 'Literature' 
-  | 'Languages' 
-  | 'Computer Science' 
-  | 'Art' 
+export type Subject =
+  | 'Mathematics'
+  | 'Physics'
+  | 'Chemistry'
+  | 'Biology'
+  | 'History'
+  | 'Literature'
+  | 'Languages'
+  | 'Computer Science'
+  | 'Art'
   | 'Economics'
   | 'Other';
 export interface StudySession {
@@ -36,6 +36,7 @@ export interface User {
   id: string;
   name: string;
   email: string;
+  avatarUrl?: string;
   tests: Test[];
   createdAt: number;
 }

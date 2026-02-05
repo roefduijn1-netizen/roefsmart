@@ -33,6 +33,20 @@ export function userRoutes(app: Hono<{ Bindings: Env }>) {
     if (!await userEntity.exists()) return notFound(c, 'User not found');
     return ok(c, await userEntity.getState());
   });
+  // UPDATE USER (PATCH)
+  app.patch('/api/users/:id', async (c) => {
+    const id = c.req.param('id');
+    const updates = await c.req.json() as Partial<User>;
+    // Prevent updating protected fields if necessary, but for now allow basic profile updates
+    // Filter out id, tests, createdAt to be safe if needed, or trust the Entity logic
+    const safeUpdates: Partial<User> = {};
+    if (updates.name) safeUpdates.name = updates.name;
+    if (updates.avatarUrl !== undefined) safeUpdates.avatarUrl = updates.avatarUrl;
+    const userEntity = new UserEntity(c.env, id);
+    if (!await userEntity.exists()) return notFound(c, 'User not found');
+    await userEntity.patch(safeUpdates);
+    return ok(c, await userEntity.getState());
+  });
   // ADD TEST
   app.post('/api/users/:id/tests', async (c) => {
     const userId = c.req.param('id');

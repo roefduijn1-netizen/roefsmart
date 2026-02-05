@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Calendar, PlusCircle, User as UserIcon } from 'lucide-react';
+import { Calendar, PlusCircle, User as UserIcon, Settings } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/sonner';
 interface AurumLayoutProps {
@@ -30,6 +30,7 @@ export function AurumLayout({ children, showNav = true }: AurumLayoutProps) {
               <NavItem to="/" icon={<Calendar className="w-6 h-6" />} label="Agenda" />
               <NavItem to="/add" icon={<PlusCircle className="w-8 h-8 text-amber-400" />} label="Add" isPrimary />
               <NavItem to="/profile" icon={<UserIcon className="w-6 h-6" />} label="Profile" />
+              <NavItem to="/settings" icon={<Settings className="w-6 h-6" />} label="Settings" />
             </div>
           </div>
         </nav>

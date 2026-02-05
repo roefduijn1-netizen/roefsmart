@@ -42,7 +42,7 @@ export function DashboardPage() {
   }
   const today = new Date();
   // Flatten all sessions from all tests
-  const todaysSessions = user.tests.flatMap(test => 
+  const todaysSessions = user.tests.flatMap(test =>
     test.sessions
       .filter(s => isSameDay(parseISO(s.date), today))
       .map(s => ({ ...s, testTitle: test.title, testId: test.id }))
@@ -82,16 +82,16 @@ export function DashboardPage() {
                   key={session.id}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
+                  onClick={() => toggleSession.mutate({ testId: session.testId, sessionId: session.id })}
                   className={cn(
-                    "group relative p-4 rounded-2xl border transition-all duration-300",
-                    session.isCompleted 
-                      ? "bg-neutral-900/30 border-neutral-800 opacity-60" 
-                      : "bg-neutral-900/80 border-amber-500/20 shadow-[0_4px_20px_-5px_rgba(0,0,0,0.5)]"
+                    "group relative p-4 rounded-2xl border transition-all duration-300 cursor-pointer",
+                    session.isCompleted
+                      ? "bg-neutral-900/30 border-neutral-800 opacity-60"
+                      : "bg-neutral-900/80 border-amber-500/20 shadow-[0_4px_20px_-5px_rgba(0,0,0,0.5)] hover:bg-neutral-800/80 hover:border-amber-500/40"
                   )}
                 >
-                  <div className="flex items-start gap-4">
-                    <button
-                      onClick={() => toggleSession.mutate({ testId: session.testId, sessionId: session.id })}
+                  <div className="flex items-start gap-4 pointer-events-none">
+                    <div
                       className={cn(
                         "mt-1 flex-shrink-0 w-6 h-6 rounded-full border flex items-center justify-center transition-all",
                         session.isCompleted
@@ -100,7 +100,7 @@ export function DashboardPage() {
                       )}
                     >
                       {session.isCompleted && <CheckCircle className="w-4 h-4" />}
-                    </button>
+                    </div>
                     <div className="flex-1">
                       <h3 className={cn(
                         "font-medium text-base mb-1 transition-colors",

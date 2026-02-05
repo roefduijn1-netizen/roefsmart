@@ -27,34 +27,38 @@ export function ProfilePage() {
     <AurumLayout>
       <div className="px-6 py-8">
         <div className="flex flex-col items-center mb-10">
-          <div className="w-24 h-24 rounded-full bg-gradient-to-br from-neutral-800 to-neutral-900 border-2 border-amber-500/20 flex items-center justify-center mb-4 shadow-xl">
-            <span className="text-3xl font-display font-bold text-amber-400">
-              {user.name.charAt(0)}
-            </span>
+          <div className="w-24 h-24 rounded-full bg-gradient-to-br from-neutral-800 to-neutral-900 border-2 border-amber-500/20 flex items-center justify-center mb-4 shadow-xl overflow-hidden">
+            {user.avatarUrl ? (
+              <img src={user.avatarUrl} alt={user.name} className="w-full h-full object-cover" />
+            ) : (
+              <span className="text-3xl font-display font-bold text-amber-400">
+                {user.name.charAt(0)}
+              </span>
+            )}
           </div>
           <h1 className="text-2xl font-bold text-white">{user.name}</h1>
           <p className="text-neutral-500 text-sm">Scholar</p>
         </div>
         <div className="grid grid-cols-2 gap-4 mb-8">
-          <StatCard 
-            icon={<Target className="w-5 h-5 text-amber-400" />} 
-            label="Tests Active" 
-            value={totalTests.toString()} 
+          <StatCard
+            icon={<Target className="w-5 h-5 text-amber-400" />}
+            label="Tests Active"
+            value={totalTests.toString()}
           />
-          <StatCard 
-            icon={<Trophy className="w-5 h-5 text-amber-400" />} 
-            label="Completion" 
-            value={`${completionRate}%`} 
+          <StatCard
+            icon={<Trophy className="w-5 h-5 text-amber-400" />}
+            label="Completion"
+            value={`${completionRate}%`}
           />
-          <StatCard 
-            icon={<Flame className="w-5 h-5 text-amber-400" />} 
-            label="Sessions Done" 
-            value={completedSessions.toString()} 
+          <StatCard
+            icon={<Flame className="w-5 h-5 text-amber-400" />}
+            label="Sessions Done"
+            value={completedSessions.toString()}
           />
-          <StatCard 
-            icon={<Target className="w-5 h-5 text-amber-400" />} 
-            label="Total Planned" 
-            value={totalSessions.toString()} 
+          <StatCard
+            icon={<Target className="w-5 h-5 text-amber-400" />}
+            label="Total Planned"
+            value={totalSessions.toString()}
           />
         </div>
         <div className="space-y-4">
@@ -69,8 +73,8 @@ export function ProfilePage() {
               <span className="text-white text-sm">{new Date(user.createdAt || Date.now()).toLocaleDateString()}</span>
             </div>
           </div>
-          <Button 
-            variant="outline" 
+          <Button
+            variant="outline"
             onClick={handleLogout}
             className="w-full border-red-900/30 text-red-400 hover:bg-red-950/30 hover:text-red-300"
           >
