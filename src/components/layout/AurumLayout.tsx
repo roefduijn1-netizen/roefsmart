@@ -51,7 +51,7 @@ export function AurumLayout({ children, showNav = true }: AurumLayoutProps) {
             </div>
             <div>
               <span className="text-xl font-display font-bold text-white tracking-tight block leading-none">ROEFSMART</span>
-              <span className="text-[10px] text-amber-500/80 tracking-[0.2em] uppercase font-medium">Excellence</span>
+              <span className="text-[10px] text-amber-500/80 tracking-[0.2em] uppercase font-medium">Exclusief</span>
             </div>
           </div>
           <nav className="flex-1 px-4 space-y-2 py-4">

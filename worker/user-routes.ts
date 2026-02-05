@@ -7,7 +7,7 @@ export function userRoutes(app: Hono<{ Bindings: Env }>) {
   // AUTH: Login/Register by Email
   app.post('/api/auth', async (c) => {
     const { email, name } = await c.req.json() as { email?: string, name?: string };
-    if (!email?.trim()) return bad(c, 'Email is required');
+    if (!email?.trim()) return bad(c, 'E-mailadres is verplicht');
     // Simple deterministic ID from email for this demo (In prod, use proper auth)
     // We use a simple hash or just the email sanitized as ID for simplicity in this environment
     const userId = email.trim().toLowerCase().replace(/[^a-z0-9]/g, '-');
@@ -30,7 +30,7 @@ export function userRoutes(app: Hono<{ Bindings: Env }>) {
   app.get('/api/users/:id', async (c) => {
     const id = c.req.param('id');
     const userEntity = new UserEntity(c.env, id);
-    if (!await userEntity.exists()) return notFound(c, 'User not found');
+    if (!await userEntity.exists()) return notFound(c, 'Gebruiker niet gevonden');
     return ok(c, await userEntity.getState());
   });
   // UPDATE USER (PATCH)
@@ -43,7 +43,7 @@ export function userRoutes(app: Hono<{ Bindings: Env }>) {
     if (updates.name) safeUpdates.name = updates.name;
     if (updates.avatarUrl !== undefined) safeUpdates.avatarUrl = updates.avatarUrl;
     const userEntity = new UserEntity(c.env, id);
-    if (!await userEntity.exists()) return notFound(c, 'User not found');
+    if (!await userEntity.exists()) return notFound(c, 'Gebruiker niet gevonden');
     await userEntity.patch(safeUpdates);
     return ok(c, await userEntity.getState());
   });
@@ -51,9 +51,9 @@ export function userRoutes(app: Hono<{ Bindings: Env }>) {
   app.post('/api/users/:id/tests', async (c) => {
     const userId = c.req.param('id');
     const test = await c.req.json() as Test;
-    if (!test.id || !test.subject || !test.date) return bad(c, 'Invalid test data');
+    if (!test.id || !test.subject || !test.date) return bad(c, 'Ongeldige toetsgegevens');
     const userEntity = new UserEntity(c.env, userId);
-    if (!await userEntity.exists()) return notFound(c, 'User not found');
+    if (!await userEntity.exists()) return notFound(c, 'Gebruiker niet gevonden');
     const updatedUser = await userEntity.addTest(test);
     return ok(c, updatedUser);
   });
@@ -61,7 +61,7 @@ export function userRoutes(app: Hono<{ Bindings: Env }>) {
   app.post('/api/users/:id/tests/:testId/sessions/:sessionId/toggle', async (c) => {
     const { id, testId, sessionId } = c.req.param();
     const userEntity = new UserEntity(c.env, id);
-    if (!await userEntity.exists()) return notFound(c, 'User not found');
+    if (!await userEntity.exists()) return notFound(c, 'Gebruiker niet gevonden');
     const updatedUser = await userEntity.toggleSession(testId, sessionId);
     return ok(c, updatedUser);
   });
@@ -69,7 +69,7 @@ export function userRoutes(app: Hono<{ Bindings: Env }>) {
   app.delete('/api/users/:id/tests/:testId', async (c) => {
       const { id, testId } = c.req.param();
       const userEntity = new UserEntity(c.env, id);
-      if (!await userEntity.exists()) return notFound(c, 'User not found');
+      if (!await userEntity.exists()) return notFound(c, 'Gebruiker niet gevonden');
       const updatedUser = await userEntity.deleteTest(testId);
       return ok(c, updatedUser);
   });

@@ -94,7 +94,7 @@ export function SettingsPage() {
                 </div>
                 <div className="flex-1 space-y-4 w-full">
                   <div className="space-y-2">
-                    <Label htmlFor="avatar-url" className="text-neutral-300">Avatar URL</Label>
+                    <Label htmlFor="avatar-url" className="text-neutral-300">Link naar profielfoto</Label>
                     <Input
                       id="avatar-url"
                       value={avatarUrl}

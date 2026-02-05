@@ -17,7 +17,7 @@ export function useNotifications() {
       setPermission(result);
       if (result === 'granted') {
         toast.success('Meldingen ingeschakeld');
-        new Notification('Aurum Study', {
+        new Notification('ROEFSMART', {
           body: 'Meldingen zijn succesvol ingesteld.',
           icon: '/vite.svg'
         });

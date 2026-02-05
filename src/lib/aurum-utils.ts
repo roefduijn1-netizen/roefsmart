@@ -24,7 +24,7 @@ const STUDY_TOPICS: Record<string, string[]> = {
     "Flashcards oefenen",
     "Proeftoets maken",
     "Lastige onderwerpen herhalen",
-    "Eindreview & Rust"
+    "Eindherhaling & Rust"
   ]
 };
 export function generateStudyPlan(
