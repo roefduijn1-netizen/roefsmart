@@ -1,30 +1,22 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 export function useTheme() {
-  const [isDark, setIsDark] = useState(() => {
-    if (typeof window === 'undefined') return true;
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      return savedTheme === 'dark';
-    }
-    // Check system preference if no local preference exists
-    if (window.matchMedia) {
-      return window.matchMedia('(prefers-color-scheme: dark)').matches;
-    }
-    return true; // Fallback default
-  });
+  // Always enforce dark mode
+  const isDark = true;
   useEffect(() => {
     const root = window.document.documentElement;
-    root.classList.remove('light', 'dark');
-    if (isDark) {
-      root.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      root.classList.add('light');
-      localStorage.setItem('theme', 'light');
+    // Remove light class and add dark class to enforce theme
+    root.classList.remove('light');
+    root.classList.add('dark');
+    // Enforce dark mode in local storage to prevent any legacy logic from switching it back
+    try {
+        localStorage.setItem('theme', 'dark');
+    } catch (e) {
+        // Ignore storage errors
     }
-  }, [isDark]);
+  }, []);
+  // No-op toggle function to maintain interface compatibility
   const toggleTheme = () => {
-    setIsDark(!isDark);
+    // Theme toggling is disabled
   };
   return { isDark, toggleTheme };
 }

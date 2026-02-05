@@ -79,13 +79,13 @@ export function AddTestPage() {
   return (
     <AurumLayout showNav={false}>
       <div className="min-h-screen flex items-center justify-center p-4 md:p-8">
-        <div className="w-full max-w-2xl mx-auto luxury-card rounded-[2rem] p-8 md:p-12 relative overflow-hidden">
+        <div className="w-full max-w-2xl mx-auto luxury-card rounded-[2rem] p-6 md:p-12 relative overflow-hidden">
           {/* Background Glow */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/5 rounded-full blur-[80px] pointer-events-none" />
           <div className="flex flex-col h-full min-h-[600px] relative z-10">
             {/* Header */}
             <div className="flex items-center justify-between mb-12">
-              <Button variant="ghost" size="icon" onClick={handleBack} className="text-muted-foreground hover:text-foreground hover:bg-secondary/50 rounded-full">
+              <Button variant="ghost" size="icon" onClick={handleBack} className="text-muted-foreground hover:text-foreground hover:bg-white/5 rounded-full">
                 <ChevronLeft className="w-6 h-6" />
               </Button>
               {/* Step Indicators */}
@@ -100,13 +100,13 @@ export function AddTestPage() {
                             "w-8 h-8 rounded-full flex items-center justify-center transition-all duration-500 border",
                             isActive
                                 ? "bg-amber-500 text-black border-amber-500 shadow-[0_0_15px_-3px_rgba(245,158,11,0.4)]"
-                                : "bg-secondary text-muted-foreground border-border"
+                                : "bg-white/5 text-muted-foreground border-white/10"
                             )}
                         >
                             <Icon className="w-4 h-4" />
                         </div>
                         {i < steps.length - 1 && (
-                            <div className={cn("w-8 h-[1px] transition-colors duration-500", isActive ? "bg-amber-500/50" : "bg-border")} />
+                            <div className={cn("w-8 h-[1px] transition-colors duration-500", isActive ? "bg-amber-500/50" : "bg-white/10")} />
                         )}
                     </div>
                   );
@@ -144,10 +144,10 @@ export function AddTestPage() {
                             key={sub}
                             onClick={() => { setSubject(sub); setTimeout(() => setStep('date'), 200); }}
                             className={cn(
-                              "p-5 rounded-xl text-left transition-all duration-300 border w-full group",
+                              "p-5 rounded-xl text-left transition-all duration-300 border w-full group glass-effect",
                               subject === sub
-                                ? "bg-amber-500/10 border-amber-500/50 text-amber-600 dark:text-amber-400 shadow-[0_0_20px_-5px_rgba(245,158,11,0.2)]"
-                                : "bg-secondary/30 border-border text-foreground hover:border-border/80 hover:bg-secondary/50"
+                                ? "bg-amber-500/10 border-amber-500/50 text-amber-400 shadow-[0_0_20px_-5px_rgba(245,158,11,0.2)]"
+                                : "text-foreground"
                             )}
                           >
                             <span className="font-medium text-lg">{sub}</span>
@@ -168,7 +168,7 @@ export function AddTestPage() {
                 >
                   <h2 className="text-4xl font-display font-bold text-foreground mb-3">Toetsdatum</h2>
                   <p className="text-muted-foreground mb-8 font-light">Wanneer is de grote dag?</p>
-                  <div className="bg-card/40 border border-border rounded-3xl p-6 mb-8 flex justify-center shadow-inner backdrop-blur-sm">
+                  <div className="glass-panel rounded-3xl p-6 mb-8 flex justify-center shadow-inner">
                     <Calendar
                       mode="single"
                       selected={date}
@@ -179,9 +179,9 @@ export function AddTestPage() {
                       classNames={{
                         head_cell: "text-muted-foreground font-normal text-sm",
                         cell: "text-center text-sm p-0 relative [&:has([aria-selected])]:bg-amber-500/10 first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
-                        day: "h-10 w-10 p-0 font-normal aria-selected:opacity-100 hover:bg-secondary rounded-full transition-colors text-foreground",
+                        day: "h-10 w-10 p-0 font-normal aria-selected:opacity-100 hover:bg-white/10 rounded-full transition-colors text-foreground",
                         day_selected: "bg-amber-500 text-black hover:bg-amber-600 hover:text-black focus:bg-amber-500 focus:text-black shadow-[0_0_15px_rgba(245,158,11,0.5)]",
-                        day_today: "bg-secondary text-foreground",
+                        day_today: "bg-white/5 text-foreground",
                       }}
                     />
                   </div>
@@ -212,14 +212,14 @@ export function AddTestPage() {
                         key={level}
                         onClick={() => setDifficulty(level as DifficultyLevel)}
                         className={cn(
-                          "w-full p-5 rounded-2xl flex items-center justify-between border transition-all duration-300 group",
+                          "w-full p-5 rounded-2xl flex items-center justify-between border transition-all duration-300 group glass-effect",
                           difficulty === level
                             ? "bg-amber-500/10 border-amber-500/50 shadow-[0_0_20px_-5px_rgba(245,158,11,0.2)]"
-                            : "bg-secondary/30 border-border hover:border-border/80 hover:bg-secondary/50"
+                            : "text-foreground"
                         )}
                       >
                         <div className="flex flex-col items-start">
-                          <span className={cn("font-bold text-lg transition-colors", difficulty === level ? "text-amber-600 dark:text-amber-400" : "text-foreground")}>
+                          <span className={cn("font-bold text-lg transition-colors", difficulty === level ? "text-amber-400" : "text-foreground")}>
                             Niveau {level}
                           </span>
                           <span className="text-xs text-muted-foreground mt-1">
@@ -234,8 +234,8 @@ export function AddTestPage() {
                               className={cn(
                                 "w-2 h-8 rounded-full transition-all duration-300",
                                 i < level
-                                    ? (difficulty === level ? "bg-gradient-to-t from-amber-600 to-amber-400 shadow-[0_0_10px_rgba(245,158,11,0.5)]" : "bg-neutral-400 dark:bg-neutral-700")
-                                    : "bg-secondary border border-border"
+                                    ? (difficulty === level ? "bg-gradient-to-t from-amber-600 to-amber-400 shadow-[0_0_10px_rgba(245,158,11,0.5)]" : "bg-neutral-700")
+                                    : "bg-white/5 border border-white/10"
                               )}
                             />
                           ))}
@@ -265,26 +265,26 @@ export function AddTestPage() {
                   </div>
                   <h2 className="text-4xl font-display font-bold text-foreground mb-3">Klaar om te starten?</h2>
                   <p className="text-muted-foreground mb-10 max-w-xs mx-auto font-light">
-                    We genereren een studieplanning voor je <span className="text-amber-600 dark:text-amber-400">{subject}</span> toets.
+                    We genereren een studieplanning voor je <span className="text-amber-400">{subject}</span> toets.
                   </p>
-                  <div className="w-full max-w-sm bg-card/40 border border-border rounded-2xl p-6 mb-10 text-left space-y-4 backdrop-blur-md">
-                    <div className="flex justify-between items-center border-b border-border pb-3">
+                  <div className="w-full max-w-sm glass-panel rounded-2xl p-6 mb-10 text-left space-y-4">
+                    <div className="flex justify-between items-center border-b border-white/10 pb-3">
                       <span className="text-muted-foreground text-sm uppercase tracking-wider">Vak</span>
                       <span className="text-foreground font-medium text-lg">{subject}</span>
                     </div>
-                    <div className="flex justify-between items-center border-b border-border pb-3">
+                    <div className="flex justify-between items-center border-b border-white/10 pb-3">
                       <span className="text-muted-foreground text-sm uppercase tracking-wider">Datum</span>
                       <span className="text-foreground font-medium text-lg">{date?.toLocaleDateString('nl-NL')}</span>
                     </div>
                     <div className="flex justify-between items-center">
                       <span className="text-muted-foreground text-sm uppercase tracking-wider">Studiedruk</span>
-                      <span className="text-amber-600 dark:text-amber-400 font-bold text-lg">Niveau {difficulty}</span>
+                      <span className="text-amber-400 font-bold text-lg">Niveau {difficulty}</span>
                     </div>
                   </div>
                   <Button
                     onClick={handleConfirm}
                     disabled={isSubmitting}
-                    className="luxury-button w-full max-w-sm h-14 rounded-xl text-lg"
+                    className="luxury-button-primary w-full max-w-sm h-14 rounded-xl text-lg"
                   >
                     {isSubmitting ? 'Plan Genereren...' : 'Planning Genereren'}
                   </Button>

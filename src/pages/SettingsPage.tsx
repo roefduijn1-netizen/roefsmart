@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Save, Moon, Sun, Image as ImageIcon, Loader2, Bell, AlertCircle } from 'lucide-react';
+import { Save, Image as ImageIcon, Loader2, Bell, AlertCircle } from 'lucide-react';
 import { api } from '@/lib/api-client';
 import { User } from '@shared/types';
 import { AurumLayout } from '@/components/layout/AurumLayout';
@@ -9,13 +9,11 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
-import { useTheme } from '@/hooks/use-theme';
 import { useNotifications } from '@/hooks/use-notifications';
 import { toast } from 'sonner';
 export function SettingsPage() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const { isDark, toggleTheme } = useTheme();
   const { isEnabled: notificationsEnabled, requestPermission } = useNotifications();
   const userId = localStorage.getItem('aurum_user_id');
   const [avatarUrl, setAvatarUrl] = useState('');
@@ -95,7 +93,7 @@ export function SettingsPage() {
             </h2>
             <div className="luxury-card p-6 md:p-8 rounded-2xl space-y-6">
               <div className="flex flex-col md:flex-row md:items-start gap-6">
-                <div className="relative w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden bg-secondary border border-border flex-shrink-0 mx-auto md:mx-0 shadow-lg">
+                <div className="relative w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden bg-white/5 border border-white/10 flex-shrink-0 mx-auto md:mx-0 shadow-lg">
                   {avatarUrl ? (
                     <img src={avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
                   ) : (
@@ -147,29 +145,11 @@ export function SettingsPage() {
               />
             </div>
           </div>
-          {/* Appearance Section */}
-          <div className="space-y-4">
-            <h2 className="text-lg font-semibold text-foreground flex items-center gap-2">
-              {isDark ? <Moon className="w-5 h-5 text-amber-500" /> : <Sun className="w-5 h-5 text-amber-500" />}
-              Thema
-            </h2>
-            <div className="luxury-card p-6 rounded-2xl flex items-center justify-between">
-              <div className="space-y-1">
-                <div className="text-foreground font-medium">Donkere Modus</div>
-                <div className="text-xs text-muted-foreground">Schakel applicatie thema</div>
-              </div>
-              <Switch
-                checked={isDark}
-                onCheckedChange={toggleTheme}
-                className="data-[state=checked]:bg-amber-500"
-              />
-            </div>
-          </div>
           <div className="pt-4">
             <Button
               onClick={handleSave}
               disabled={updateUserMutation.isPending}
-              className="luxury-button w-full md:w-auto md:min-w-[200px] h-12"
+              className="luxury-button-primary w-full md:w-auto md:min-w-[200px] h-12"
             >
               {updateUserMutation.isPending ? (
                 <>

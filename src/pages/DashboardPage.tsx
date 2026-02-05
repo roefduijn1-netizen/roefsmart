@@ -55,7 +55,7 @@ export function DashboardPage() {
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-4">
-            <Button onClick={() => refetch()} variant="outline" className="border-border hover:bg-secondary">
+            <Button onClick={() => refetch()} variant="outline" className="border-white/10 hover:bg-white/5">
               Opnieuw proberen
             </Button>
             <Button onClick={() => navigate('/auth')} className="luxury-button">
@@ -103,7 +103,7 @@ export function DashboardPage() {
           </div>
           <Button
             asChild
-            className="luxury-button h-12 px-6 rounded-xl text-sm font-bold shadow-[0_0_20px_-5px_rgba(245,158,11,0.3)]"
+            className="luxury-button-primary h-12 px-6 rounded-xl text-sm font-bold shadow-[0_0_20px_-5px_rgba(245,158,11,0.3)]"
           >
             <Link to="/add">
               <Plus className="w-4 h-4 mr-2" />
@@ -111,8 +111,8 @@ export function DashboardPage() {
             </Link>
           </Button>
         </header>
-        {/* Main Grid Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Main Grid Layout - Responsive: 1 col mobile, 2 cols tablet, 3 cols desktop */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* Left Column: Status & Upcoming */}
           <div className="col-span-1 space-y-8">
             {/* Today's Status Card */}
@@ -125,7 +125,7 @@ export function DashboardPage() {
                 >
                   <div className="absolute inset-0 bg-gradient-to-b from-amber-500/5 to-transparent opacity-50" />
                   <div className="relative z-10">
-                    <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-secondary border border-border flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-500">
+                    <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-500">
                       <PartyPopper className="w-8 h-8 text-amber-500" />
                     </div>
                     <h3 className="text-xl font-display font-bold text-foreground mb-2">Geen leersessies vandaag</h3>
@@ -138,7 +138,7 @@ export function DashboardPage() {
                 <div className="space-y-4">
                   <div className="flex items-center justify-between px-1">
                     <h2 className="text-lg font-display font-semibold text-foreground">Vandaag</h2>
-                    <span className="text-xs font-medium text-amber-600 dark:text-amber-400 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20">
+                    <span className="text-xs font-medium text-amber-400 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20">
                       {todaysSessions.filter(s => s.isCompleted).length}/{todaysSessions.length}
                     </span>
                   </div>
@@ -158,17 +158,17 @@ export function DashboardPage() {
                             "mt-0.5 w-5 h-5 rounded-full border flex items-center justify-center transition-colors",
                             session.isCompleted
                               ? "bg-amber-500 border-amber-500 text-black"
-                              : "border-border group-hover:border-amber-500/50"
+                              : "border-white/20 group-hover:border-amber-500/50"
                           )}>
                             {session.isCompleted && <CheckCircle className="w-3 h-3" />}
                           </div>
                           <div className="flex-1 min-w-0">
                             <p className={cn(
                               "text-sm font-medium truncate transition-colors",
-                              session.isCompleted ? "text-muted-foreground line-through" : "text-foreground group-hover:text-amber-700 dark:group-hover:text-amber-100"
+                              session.isCompleted ? "text-muted-foreground line-through" : "text-foreground group-hover:text-amber-100"
                             )}>{session.topic}</p>
                             <div className="flex items-center gap-2 mt-1.5">
-                              <span className="text-[10px] uppercase tracking-wider text-amber-600 dark:text-amber-500 font-bold bg-amber-500/10 px-1.5 py-0.5 rounded">
+                              <span className="text-[10px] uppercase tracking-wider text-amber-500 font-bold bg-amber-500/10 px-1.5 py-0.5 rounded">
                                 {session.testTitle}
                               </span>
                               <span className="text-[10px] text-muted-foreground flex items-center gap-1">
@@ -193,7 +193,7 @@ export function DashboardPage() {
               </div>
               <div className="space-y-3">
                 {upcomingTests.length === 0 ? (
-                  <div className="p-6 text-center border border-dashed border-border rounded-2xl bg-secondary/30">
+                  <div className="p-6 text-center border border-dashed border-white/10 rounded-2xl bg-white/5">
                     <p className="text-muted-foreground text-sm">Geen toetsen in het vooruitzicht.</p>
                   </div>
                 ) : (
@@ -202,21 +202,21 @@ export function DashboardPage() {
                     return (
                       <div key={test.id} className="luxury-card p-5 rounded-2xl group hover:border-amber-500/30 transition-all duration-300">
                         <div className="flex justify-between items-start mb-3">
-                          <span className="text-[10px] font-bold uppercase tracking-wider text-amber-600 dark:text-amber-500 bg-amber-500/10 px-2 py-1 rounded-md border border-amber-500/20">
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-amber-500 bg-amber-500/10 px-2 py-1 rounded-md border border-amber-500/20">
                             {test.subject}
                           </span>
                           <StarRating rating={test.difficulty} className="opacity-50 group-hover:opacity-100 transition-opacity" />
                         </div>
-                        <h3 className="text-lg font-display font-bold text-foreground mb-1 group-hover:text-amber-700 dark:group-hover:text-amber-100 transition-colors">
+                        <h3 className="text-lg font-display font-bold text-foreground mb-1 group-hover:text-amber-100 transition-colors">
                           {test.title}
                         </h3>
                         <div className="flex items-center gap-2 text-muted-foreground text-xs mb-4">
                           <CalendarIcon className="w-3.5 h-3.5" />
                           {format(parseISO(test.date), 'd MMMM yyyy', { locale: nl })}
                         </div>
-                        <div className="flex items-center gap-2 text-xs font-medium text-foreground bg-secondary/50 px-3 py-2 rounded-lg border border-border">
+                        <div className="flex items-center gap-2 text-xs font-medium text-foreground bg-white/5 px-3 py-2 rounded-lg border border-white/10">
                           <BookOpen className="w-3.5 h-3.5 text-amber-500" />
-                          <span>Nog <span className="text-amber-600 dark:text-amber-400 font-bold">{daysLeft}</span> dagen</span>
+                          <span>Nog <span className="text-amber-400 font-bold">{daysLeft}</span> dagen</span>
                         </div>
                       </div>
                     );
@@ -230,8 +230,8 @@ export function DashboardPage() {
               </div>
             </section>
           </div>
-          {/* Right Column: Calendar */}
-          <div className="col-span-1 lg:col-span-2 h-full min-h-[500px]">
+          {/* Right Column: Calendar - Spans 1 col on tablet, 2 cols on desktop */}
+          <div className="col-span-1 md:col-span-1 lg:col-span-2 h-full min-h-[500px]">
             <DashboardCalendar
               tests={user.tests}
               sessions={allSessions}
