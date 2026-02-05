@@ -164,7 +164,7 @@ export function AddTestPage() {
                 >
                   <h2 className="text-4xl font-display font-bold text-white mb-3">Toetsdatum</h2>
                   <p className="text-neutral-400 mb-8 font-light">Wanneer is de grote dag?</p>
-                  <div className="bg-black/40 border border-white/10 rounded-3xl p-6 mb-8 flex justify-center shadow-inner">
+                  <div className="bg-black/40 border border-white/10 rounded-3xl p-6 mb-8 flex justify-center shadow-inner backdrop-blur-sm">
                     <Calendar
                       mode="single"
                       selected={date}
@@ -229,8 +229,8 @@ export function AddTestPage() {
                               key={i}
                               className={cn(
                                 "w-2 h-8 rounded-full transition-all duration-300",
-                                i < level 
-                                    ? (difficulty === level ? "bg-gradient-to-t from-amber-600 to-amber-400 shadow-[0_0_10px_rgba(245,158,11,0.5)]" : "bg-neutral-700") 
+                                i < level
+                                    ? (difficulty === level ? "bg-gradient-to-t from-amber-600 to-amber-400 shadow-[0_0_10px_rgba(245,158,11,0.5)]" : "bg-neutral-700")
                                     : "bg-neutral-900 border border-white/5"
                               )}
                             />

@@ -16,35 +16,35 @@ export function AurumLayout({ children, showNav = true }: AurumLayoutProps) {
     <div className="min-h-screen bg-background text-foreground font-sans selection:bg-amber-500/30 flex flex-col md:flex-row overflow-hidden">
       {/* Ambient Background - Breathing Effect */}
       <div className="fixed inset-0 pointer-events-none z-0">
-        <motion.div 
-          animate={{ 
+        <motion.div
+          animate={{
             opacity: [0.3, 0.5, 0.3],
             scale: [1, 1.1, 1]
           }}
-          transition={{ 
-            duration: 10, 
-            repeat: Infinity, 
-            ease: "easeInOut" 
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut"
           }}
-          className="absolute top-[-20%] left-[-10%] w-[70%] h-[70%] bg-amber-500/5 rounded-full blur-[150px]" 
+          className="absolute top-[-20%] left-[-10%] w-[70%] h-[70%] bg-amber-500/5 rounded-full blur-[150px]"
         />
-        <motion.div 
-          animate={{ 
+        <motion.div
+          animate={{
             opacity: [0.2, 0.4, 0.2],
             scale: [1, 1.2, 1]
           }}
-          transition={{ 
-            duration: 15, 
-            repeat: Infinity, 
+          transition={{
+            duration: 15,
+            repeat: Infinity,
             ease: "easeInOut",
             delay: 2
           }}
-          className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] bg-amber-600/5 rounded-full blur-[150px]" 
+          className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] bg-amber-600/5 rounded-full blur-[150px]"
         />
       </div>
       {/* Desktop Sidebar Navigation */}
       {showNav && (
-        <aside className="hidden md:flex w-72 flex-col fixed inset-y-0 left-0 z-50 bg-[#050505]/90 backdrop-blur-2xl border-r border-white/5 shadow-2xl">
+        <aside className="hidden md:flex w-72 flex-col fixed inset-y-0 left-0 z-50 liquid-nav border-r">
           <div className="p-8 flex items-center gap-3 mb-4">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-300 via-amber-500 to-amber-700 flex items-center justify-center shadow-[0_0_20px_-5px_rgba(245,158,11,0.4)]">
               <Crown className="w-5 h-5 text-black fill-black/20" />
@@ -57,7 +57,7 @@ export function AurumLayout({ children, showNav = true }: AurumLayoutProps) {
           <nav className="flex-1 px-4 space-y-2 py-4">
             <DesktopNavItem to="/" icon={<Calendar className="w-5 h-5" />} label="Agenda" />
             <DesktopNavItem to="/add" icon={<PlusCircle className="w-5 h-5" />} label="Nieuwe Toets" />
-            <DesktopNavItem to="/profile" icon={<UserIcon className="w-5 h-5" />} label="Sanctuary" />
+            <DesktopNavItem to="/profile" icon={<UserIcon className="w-5 h-5" />} label="Profiel" />
             <DesktopNavItem to="/settings" icon={<Settings className="w-5 h-5" />} label="Instellingen" />
           </nav>
           <div className="p-8 border-t border-white/5">
@@ -85,19 +85,19 @@ export function AurumLayout({ children, showNav = true }: AurumLayoutProps) {
       {/* Mobile Bottom Navigation */}
       {showNav && (
         <nav className="md:hidden fixed bottom-6 left-4 right-4 z-50 flex justify-center pointer-events-none">
-          <div className="w-full max-w-md bg-[#0a0a0a]/90 backdrop-blur-2xl border border-white/10 pointer-events-auto rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.8)] px-2 py-2">
+          <div className="w-full max-w-md liquid-nav pointer-events-auto rounded-2xl px-2 py-2 border border-white/10">
             <div className="flex items-center justify-between h-14 px-2">
               <MobileNavItem to="/" icon={<Calendar className="w-5 h-5" />} label="Agenda" />
-              <MobileNavItem to="/add" icon={<PlusCircle className="w-6 h-6" />} label="Add" isPrimary />
+              <MobileNavItem to="/add" icon={<PlusCircle className="w-6 h-6" />} label="Nieuw" isPrimary />
               <MobileNavItem to="/profile" icon={<UserIcon className="w-5 h-5" />} label="Profiel" />
               <MobileNavItem to="/settings" icon={<Settings className="w-5 h-5" />} label="Opties" />
             </div>
           </div>
         </nav>
       )}
-      <Toaster 
-        theme="dark" 
-        position="top-center" 
+      <Toaster
+        theme="dark"
+        position="top-center"
         toastOptions={{
           className: "bg-[#0a0a0a] border border-white/10 text-white shadow-2xl backdrop-blur-xl",
           descriptionClassName: "text-neutral-400"
@@ -120,15 +120,15 @@ function MobileNavItem({ to, icon, label, isPrimary }: { to: string; icon: React
         <>
           <div className={cn(
             "flex items-center justify-center transition-all duration-300",
-            isPrimary 
-              ? "w-14 h-14 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 text-black shadow-[0_0_20px_-5px_rgba(245,158,11,0.5)]" 
+            isPrimary
+              ? "w-14 h-14 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 text-black shadow-[0_0_20px_-5px_rgba(245,158,11,0.5)]"
               : "w-10 h-10 rounded-xl",
             isActive && !isPrimary ? "bg-amber-500/10" : ""
           )}>
             {icon}
           </div>
           {!isPrimary && isActive && (
-            <motion.div 
+            <motion.div
               layoutId="mobileNavIndicator"
               className="absolute -bottom-1 w-1 h-1 rounded-full bg-amber-500"
             />

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { CheckCircle, Clock, BookOpen, PartyPopper, Calendar as CalendarIcon, Plus, ArrowRight } from 'lucide-react';
 import { api } from '@/lib/api-client';
 import { User } from '@shared/types';
@@ -69,7 +69,7 @@ export function DashboardPage() {
               {getGreeting()}, <span className="text-gold-premium">{user.name.split(' ')[0]}</span>
             </h1>
           </div>
-          <Button 
+          <Button
             asChild
             className="luxury-button h-12 px-6 rounded-xl text-sm font-bold shadow-[0_0_20px_-5px_rgba(245,158,11,0.3)]"
           >
@@ -86,7 +86,7 @@ export function DashboardPage() {
             {/* Today's Status Card */}
             <section>
               {todaysSessions.length === 0 ? (
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   className="luxury-card p-8 rounded-3xl text-center flex flex-col items-center justify-center min-h-[240px] relative overflow-hidden group"
@@ -124,8 +124,8 @@ export function DashboardPage() {
                         <div className="flex items-start gap-3 relative z-10">
                           <div className={cn(
                             "mt-0.5 w-5 h-5 rounded-full border flex items-center justify-center transition-colors",
-                            session.isCompleted 
-                              ? "bg-amber-500 border-amber-500 text-black" 
+                            session.isCompleted
+                              ? "bg-amber-500 border-amber-500 text-black"
                               : "border-white/20 group-hover:border-amber-500/50"
                           )}>
                             {session.isCompleted && <CheckCircle className="w-3 h-3" />}
@@ -200,9 +200,9 @@ export function DashboardPage() {
           </div>
           {/* Right Column: Calendar */}
           <div className="col-span-1 lg:col-span-2 h-full min-h-[500px]">
-            <DashboardCalendar 
-              tests={user.tests} 
-              sessions={allSessions} 
+            <DashboardCalendar
+              tests={user.tests}
+              sessions={allSessions}
               className="h-full"
             />
           </div>

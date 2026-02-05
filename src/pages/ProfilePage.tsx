@@ -62,8 +62,8 @@ export function ProfilePage() {
         </div>
         {/* Account Section */}
         <div className="max-w-2xl mx-auto md:mx-0 space-y-6">
-          <h3 className="text-sm font-medium text-neutral-400 uppercase tracking-wider">Account Details</h3>
-          <div className="p-6 rounded-2xl bg-neutral-900/50 border border-neutral-800 space-y-4">
+          <h3 className="text-sm font-medium text-neutral-400 uppercase tracking-wider">Accountgegevens</h3>
+          <div className="luxury-card p-6 rounded-2xl space-y-4">
             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-0 pb-4 border-b border-white/5">
               <span className="text-neutral-400 text-sm">E-mailadres</span>
               <span className="text-white text-sm font-medium">{user.email}</span>
@@ -90,7 +90,7 @@ export function ProfilePage() {
 }
 function StatCard({ icon, label, value }: { icon: React.ReactNode, label: string, value: string }) {
   return (
-    <div className="p-5 rounded-2xl bg-neutral-900/50 border border-neutral-800 flex flex-col items-center justify-center text-center gap-3 hover:bg-neutral-900/80 transition-colors group">
+    <div className="luxury-card p-5 rounded-2xl flex flex-col items-center justify-center text-center gap-3 hover:bg-neutral-900/80 transition-colors group">
       <div className="p-3 rounded-full bg-amber-500/10 group-hover:bg-amber-500/20 transition-colors">
         {icon}
       </div>

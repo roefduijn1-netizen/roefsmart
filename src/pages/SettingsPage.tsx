@@ -81,7 +81,7 @@ export function SettingsPage() {
               <ImageIcon className="w-5 h-5 text-amber-400" />
               Profiel Uiterlijk
             </h2>
-            <div className="p-6 md:p-8 rounded-2xl bg-neutral-900/50 border border-neutral-800 space-y-6">
+            <div className="luxury-card p-6 md:p-8 rounded-2xl space-y-6">
               <div className="flex flex-col md:flex-row md:items-start gap-6">
                 <div className="relative w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden bg-neutral-800 border border-neutral-700 flex-shrink-0 mx-auto md:mx-0 shadow-lg">
                   {avatarUrl ? (
@@ -100,7 +100,7 @@ export function SettingsPage() {
                       value={avatarUrl}
                       onChange={(e) => setAvatarUrl(e.target.value)}
                       placeholder="https://voorbeeld.nl/afbeelding.png"
-                      className="bg-neutral-950/50 border-neutral-800 focus:border-amber-500/50 h-11"
+                      className="luxury-input h-11"
                     />
                     <p className="text-[10px] text-neutral-500">Plak een directe link naar een afbeelding.</p>
                   </div>
@@ -110,7 +110,7 @@ export function SettingsPage() {
                       id="display-name"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="bg-neutral-950/50 border-neutral-800 focus:border-amber-500/50 h-11"
+                      className="luxury-input h-11"
                     />
                   </div>
                 </div>
@@ -123,7 +123,7 @@ export function SettingsPage() {
               <Bell className="w-5 h-5 text-amber-400" />
               Meldingen
             </h2>
-            <div className="p-6 rounded-2xl bg-neutral-900/50 border border-neutral-800 flex items-center justify-between">
+            <div className="luxury-card p-6 rounded-2xl flex items-center justify-between">
               <div className="space-y-1">
                 <div className="text-white font-medium">Dagelijkse Herinneringen</div>
                 <div className="text-xs text-neutral-500">Ontvang een melding voor je dagelijkse studieritueel</div>
@@ -141,7 +141,7 @@ export function SettingsPage() {
               {isDark ? <Moon className="w-5 h-5 text-amber-400" /> : <Sun className="w-5 h-5 text-amber-400" />}
               Thema
             </h2>
-            <div className="p-6 rounded-2xl bg-neutral-900/50 border border-neutral-800 flex items-center justify-between">
+            <div className="luxury-card p-6 rounded-2xl flex items-center justify-between">
               <div className="space-y-1">
                 <div className="text-white font-medium">Donkere Modus</div>
                 <div className="text-xs text-neutral-500">Schakel applicatie thema</div>
@@ -157,7 +157,7 @@ export function SettingsPage() {
             <Button
               onClick={handleSave}
               disabled={updateUserMutation.isPending}
-              className="w-full md:w-auto md:min-w-[200px] h-12 bg-amber-500 text-black hover:bg-amber-600 font-medium shadow-[0_0_20px_-5px_rgba(245,158,11,0.3)] transition-all"
+              className="luxury-button w-full md:w-auto md:min-w-[200px] h-12"
             >
               {updateUserMutation.isPending ? (
                 <>
