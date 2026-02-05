@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { Trophy, Flame, Target, LogOut, Calendar } from 'lucide-react';
+import { Trophy, Target, LogOut } from 'lucide-react';
 import { api } from '@/lib/api-client';
 import { User } from '@shared/types';
 import { AurumLayout } from '@/components/layout/AurumLayout';
@@ -47,27 +47,17 @@ export function ProfilePage() {
             </div>
           </div>
         </div>
-        {/* Stats Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-          <StatCard 
-            icon={<Target className="w-5 h-5 text-amber-400" />} 
-            label="Actieve Toetsen" 
-            value={totalTests.toString()} 
+        {/* Stats Grid - Reduced to 2 columns as requested */}
+        <div className="grid grid-cols-2 gap-4 mb-12 max-w-2xl">
+          <StatCard
+            icon={<Target className="w-5 h-5 text-amber-400" />}
+            label="Actieve Toetsen"
+            value={totalTests.toString()}
           />
-          <StatCard 
-            icon={<Trophy className="w-5 h-5 text-amber-400" />} 
-            label="Voltooid" 
-            value={`${completionRate}%`} 
-          />
-          <StatCard 
-            icon={<Flame className="w-5 h-5 text-amber-400" />} 
-            label="Sessies Gedaan" 
-            value={completedSessions.toString()} 
-          />
-          <StatCard 
-            icon={<Calendar className="w-5 h-5 text-amber-400" />} 
-            label="Totaal Gepland" 
-            value={totalSessions.toString()} 
+          <StatCard
+            icon={<Trophy className="w-5 h-5 text-amber-400" />}
+            label="Voltooid"
+            value={`${completionRate}%`}
           />
         </div>
         {/* Account Section */}
@@ -84,8 +74,8 @@ export function ProfilePage() {
             </div>
           </div>
           <div className="pt-4">
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               onClick={handleLogout}
               className="w-full sm:w-auto border-red-900/30 text-red-400 hover:bg-red-950/30 hover:text-red-300 hover:border-red-900/50 transition-all"
             >

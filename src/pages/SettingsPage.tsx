@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Save, Moon, Sun, Image as ImageIcon, Loader2 } from 'lucide-react';
+import { Save, Moon, Sun, Image as ImageIcon, Loader2, Bell } from 'lucide-react';
 import { api } from '@/lib/api-client';
 import { User } from '@shared/types';
 import { AurumLayout } from '@/components/layout/AurumLayout';
@@ -10,11 +10,13 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { useTheme } from '@/hooks/use-theme';
+import { useNotifications } from '@/hooks/use-notifications';
 import { toast } from 'sonner';
 export function SettingsPage() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { isDark, toggleTheme } = useTheme();
+  const { isEnabled: notificationsEnabled, requestPermission } = useNotifications();
   const userId = localStorage.getItem('aurum_user_id');
   const [avatarUrl, setAvatarUrl] = useState('');
   const [name, setName] = useState('');
@@ -47,6 +49,14 @@ export function SettingsPage() {
   const handleSave = () => {
     if (!userId) return;
     updateUserMutation.mutate({ name, avatarUrl });
+  };
+  const handleNotificationToggle = async (checked: boolean) => {
+    if (checked) {
+      await requestPermission();
+    } else {
+      // We can't programmatically revoke permission in browser, but we can tell user
+      toast.info('Je kunt meldingen uitschakelen in je browserinstellingen.');
+    }
   };
   if (isLoading) {
     return (
@@ -105,6 +115,24 @@ export function SettingsPage() {
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+          {/* Notifications Section */}
+          <div className="space-y-4">
+            <h2 className="text-lg font-semibold text-white flex items-center gap-2">
+              <Bell className="w-5 h-5 text-amber-400" />
+              Meldingen
+            </h2>
+            <div className="p-6 rounded-2xl bg-neutral-900/50 border border-neutral-800 flex items-center justify-between">
+              <div className="space-y-1">
+                <div className="text-white font-medium">Dagelijkse Herinneringen</div>
+                <div className="text-xs text-neutral-500">Ontvang een melding voor je dagelijkse studieritueel</div>
+              </div>
+              <Switch
+                checked={notificationsEnabled}
+                onCheckedChange={handleNotificationToggle}
+                className="data-[state=checked]:bg-amber-500"
+              />
             </div>
           </div>
           {/* Appearance Section */}

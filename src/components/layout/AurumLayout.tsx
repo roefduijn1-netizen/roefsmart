@@ -1,13 +1,16 @@
 import React from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { Calendar, PlusCircle, User as UserIcon, Settings, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/sonner';
+import { useNotifications } from '@/hooks/use-notifications';
 interface AurumLayoutProps {
   children: React.ReactNode;
   showNav?: boolean;
 }
 export function AurumLayout({ children, showNav = true }: AurumLayoutProps) {
+  // Initialize notifications
+  useNotifications();
   return (
     <div className="min-h-screen bg-background text-foreground font-sans selection:bg-amber-500/30 flex flex-col md:flex-row">
       {/* Background Ambient Glow - Fixed for all screens */}
@@ -32,7 +35,7 @@ export function AurumLayout({ children, showNav = true }: AurumLayoutProps) {
           </nav>
           <div className="p-6 border-t border-white/5">
             <div className="text-xs text-neutral-600 text-center">
-              Built with ❤️ by Aurelia
+              Gemaakt met ❤️ door Aurelia
             </div>
           </div>
         </aside>
@@ -92,15 +95,19 @@ function DesktopNavItem({ to, icon, label }: { to: string; icon: React.ReactNode
       to={to}
       className={({ isActive }) => cn(
         "flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group",
-        isActive 
-          ? "bg-amber-500/10 text-amber-400 border border-amber-500/20 shadow-[0_0_15px_-5px_rgba(245,158,11,0.1)]" 
+        isActive
+          ? "bg-amber-500/10 text-amber-400 border border-amber-500/20 shadow-[0_0_15px_-5px_rgba(245,158,11,0.1)]"
           : "text-neutral-400 hover:text-neutral-200 hover:bg-white/5 border border-transparent"
       )}
     >
-      <span className={cn("transition-colors", isActive ? "text-amber-400" : "text-neutral-500 group-hover:text-neutral-300")}>
-        {icon}
-      </span>
-      <span className="font-medium text-sm">{label}</span>
+      {({ isActive }) => (
+        <>
+          <span className={cn("transition-colors", isActive ? "text-amber-400" : "text-neutral-500 group-hover:text-neutral-300")}>
+            {icon}
+          </span>
+          <span className="font-medium text-sm">{label}</span>
+        </>
+      )}
     </NavLink>
   );
 }
