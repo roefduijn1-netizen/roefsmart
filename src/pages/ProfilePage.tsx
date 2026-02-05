@@ -64,7 +64,7 @@ export function ProfilePage() {
             <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-1">{user.name}</h1>
             <p className="text-muted-foreground text-sm mb-4">Student • Lid sinds {new Date(user.createdAt || Date.now()).getFullYear()}</p>
             <div className="hidden md:block">
-                <span className="inline-flex items-center px-3 py-1 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 text-xs font-medium border border-amber-500/20">
+                <span className="inline-flex items-center px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 text-xs font-medium border border-amber-500/20">
                     Premium Lid
                 </span>
             </div>
@@ -100,7 +100,7 @@ export function ProfilePage() {
             <Button
               variant="outline"
               onClick={handleLogout}
-              className="w-full sm:w-auto border-red-200 dark:border-red-900/30 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 hover:text-red-700 dark:hover:text-red-300 transition-all"
+              className="w-full sm:w-auto border-red-900/30 text-red-400 hover:bg-red-950/30 hover:text-red-300 transition-all"
             >
               <LogOut className="w-4 h-4 mr-2" />
               Uitloggen

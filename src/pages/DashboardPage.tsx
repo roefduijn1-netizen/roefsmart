@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { CheckCircle, Clock, BookOpen, PartyPopper, Calendar as CalendarIcon, Plus, ArrowRight, AlertCircle, Loader2, LogOut } from 'lucide-react';
 import { api } from '@/lib/api-client';
-import { User } from '@shared/types';
+import { User, Test } from '@shared/types';
 import { getGreeting } from '@/lib/aurum-utils';
 import { AurumLayout } from '@/components/layout/AurumLayout';
 import { cn } from '@/lib/utils';
@@ -14,10 +14,13 @@ import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { DashboardCalendar } from '@/components/dashboard/DashboardCalendar';
 import { StarRating } from '@/components/ui/star-rating';
+import { TestDetailDialog } from '@/components/dashboard/TestDetailDialog';
 export function DashboardPage() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const userId = localStorage.getItem('aurum_user_id');
+  const [selectedTest, setSelectedTest] = useState<Test | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   useEffect(() => {
     if (!userId) navigate('/auth');
   }, [userId, navigate]);
@@ -40,6 +43,29 @@ export function DashboardPage() {
       toast.error('Kon voortgang niet opslaan');
     }
   });
+  const deleteTestMutation = useMutation({
+    mutationFn: async (testId: string) => {
+      return api(`/api/users/${userId}/tests/${testId}`, { method: 'DELETE' });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['user', userId] });
+      toast.success('Toets verwijderd');
+      setIsDialogOpen(false);
+      setSelectedTest(null);
+    },
+    onError: () => {
+      toast.error('Kon toets niet verwijderen');
+    }
+  });
+  const handleTestClick = (test: Test) => {
+    setSelectedTest(test);
+    setIsDialogOpen(true);
+  };
+  const handleDeleteTest = (testId: string) => {
+    if (confirm('Weet je zeker dat je deze toets en alle bijbehorende studieplanning wilt verwijderen?')) {
+      deleteTestMutation.mutate(testId);
+    }
+  };
   // Error State
   if (isError) {
     return (
@@ -200,7 +226,11 @@ export function DashboardPage() {
                   upcomingTests.slice(0, 3).map((test) => {
                     const daysLeft = differenceInDays(parseISO(test.date), today);
                     return (
-                      <div key={test.id} className="luxury-card p-5 rounded-2xl group hover:border-amber-500/30 transition-all duration-300">
+                      <div 
+                        key={test.id} 
+                        onClick={() => handleTestClick(test)}
+                        className="luxury-card p-5 rounded-2xl group hover:border-amber-500/30 transition-all duration-300 cursor-pointer"
+                      >
                         <div className="flex justify-between items-start mb-3">
                           <span className="text-[10px] font-bold uppercase tracking-wider text-amber-500 bg-amber-500/10 px-2 py-1 rounded-md border border-amber-500/20">
                             {test.subject}
@@ -240,6 +270,13 @@ export function DashboardPage() {
           </div>
         </div>
       </div>
+      <TestDetailDialog 
+        isOpen={isDialogOpen}
+        onClose={() => setIsDialogOpen(false)}
+        test={selectedTest}
+        onDelete={handleDeleteTest}
+        isDeleting={deleteTestMutation.isPending}
+      />
     </AurumLayout>
   );
 }

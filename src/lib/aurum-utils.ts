@@ -1,5 +1,5 @@
 import { addDays, differenceInDays, subWeeks } from 'date-fns';
-import { DifficultyLevel, StudySession, Subject } from '@shared/types';
+import { DifficultyLevel, StudySession, Subject, Test } from '@shared/types';
 import { v4 as uuidv4 } from 'uuid';
 export const SUBJECTS: Subject[] = [
   'Wiskunde A', 'Wiskunde B', 'Wiskunde C', 'Wiskunde D',
@@ -56,4 +56,9 @@ export function getGreeting(): string {
   if (hour < 12) return "Goedemorgen";
   if (hour < 18) return "Goedemiddag";
   return "Goedenavond";
+}
+export function calculateTestProgress(test: Test): number {
+  if (!test.sessions || test.sessions.length === 0) return 0;
+  const completed = test.sessions.filter(s => s.isCompleted).length;
+  return Math.round((completed / test.sessions.length) * 100);
 }
