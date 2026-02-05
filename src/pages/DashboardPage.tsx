@@ -49,13 +49,13 @@ export function DashboardPage() {
             <AlertCircle className="w-8 h-8 text-red-500" />
           </div>
           <div className="space-y-2">
-            <h2 className="text-2xl font-display font-bold text-white">Er is een fout opgetreden</h2>
-            <p className="text-neutral-400 max-w-md mx-auto">
+            <h2 className="text-2xl font-display font-bold text-foreground">Er is een fout opgetreden</h2>
+            <p className="text-muted-foreground max-w-md mx-auto">
               We konden je gegevens niet laden. Dit kan komen door een verbindingsprobleem of omdat je sessie is verlopen.
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-4">
-            <Button onClick={() => refetch()} variant="outline" className="border-neutral-700 hover:bg-neutral-800">
+            <Button onClick={() => refetch()} variant="outline" className="border-border hover:bg-secondary">
               Opnieuw proberen
             </Button>
             <Button onClick={() => navigate('/auth')} className="luxury-button">
@@ -93,11 +93,11 @@ export function DashboardPage() {
         {/* Header */}
         <header className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <div className="space-y-1">
-            <div className="inline-flex items-center gap-2 text-neutral-400 text-xs font-medium uppercase tracking-widest mb-2">
+            <div className="inline-flex items-center gap-2 text-muted-foreground text-xs font-medium uppercase tracking-widest mb-2">
               <CalendarIcon className="w-3 h-3 text-amber-500" />
               {format(today, 'EEEE d MMMM', { locale: nl })}
             </div>
-            <h1 className="text-3xl md:text-4xl font-display font-bold text-white tracking-tight">
+            <h1 className="text-3xl md:text-4xl font-display font-bold text-foreground tracking-tight">
               {getGreeting()}, <span className="text-gold-premium">{user.name.split(' ')[0]}</span>
             </h1>
           </div>
@@ -125,11 +125,11 @@ export function DashboardPage() {
                 >
                   <div className="absolute inset-0 bg-gradient-to-b from-amber-500/5 to-transparent opacity-50" />
                   <div className="relative z-10">
-                    <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-neutral-900 border border-white/5 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-500">
+                    <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-secondary border border-border flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-500">
                       <PartyPopper className="w-8 h-8 text-amber-500" />
                     </div>
-                    <h3 className="text-xl font-display font-bold text-white mb-2">Geen leersessies vandaag</h3>
-                    <p className="text-neutral-400 text-sm leading-relaxed max-w-[200px] mx-auto">
+                    <h3 className="text-xl font-display font-bold text-foreground mb-2">Geen leersessies vandaag</h3>
+                    <p className="text-muted-foreground text-sm leading-relaxed max-w-[200px] mx-auto">
                       Geniet van je vrije dag of plan een nieuwe toets in!
                     </p>
                   </div>
@@ -137,8 +137,8 @@ export function DashboardPage() {
               ) : (
                 <div className="space-y-4">
                   <div className="flex items-center justify-between px-1">
-                    <h2 className="text-lg font-display font-semibold text-white">Vandaag</h2>
-                    <span className="text-xs font-medium text-amber-500/80 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20">
+                    <h2 className="text-lg font-display font-semibold text-foreground">Vandaag</h2>
+                    <span className="text-xs font-medium text-amber-600 dark:text-amber-400 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20">
                       {todaysSessions.filter(s => s.isCompleted).length}/{todaysSessions.length}
                     </span>
                   </div>
@@ -158,20 +158,20 @@ export function DashboardPage() {
                             "mt-0.5 w-5 h-5 rounded-full border flex items-center justify-center transition-colors",
                             session.isCompleted
                               ? "bg-amber-500 border-amber-500 text-black"
-                              : "border-white/20 group-hover:border-amber-500/50"
+                              : "border-border group-hover:border-amber-500/50"
                           )}>
                             {session.isCompleted && <CheckCircle className="w-3 h-3" />}
                           </div>
                           <div className="flex-1 min-w-0">
                             <p className={cn(
                               "text-sm font-medium truncate transition-colors",
-                              session.isCompleted ? "text-neutral-500 line-through" : "text-white group-hover:text-amber-100"
+                              session.isCompleted ? "text-muted-foreground line-through" : "text-foreground group-hover:text-amber-700 dark:group-hover:text-amber-100"
                             )}>{session.topic}</p>
                             <div className="flex items-center gap-2 mt-1.5">
-                              <span className="text-[10px] uppercase tracking-wider text-amber-500 font-bold bg-amber-500/10 px-1.5 py-0.5 rounded">
+                              <span className="text-[10px] uppercase tracking-wider text-amber-600 dark:text-amber-500 font-bold bg-amber-500/10 px-1.5 py-0.5 rounded">
                                 {session.testTitle}
                               </span>
-                              <span className="text-[10px] text-neutral-500 flex items-center gap-1">
+                              <span className="text-[10px] text-muted-foreground flex items-center gap-1">
                                 <Clock className="w-3 h-3" /> {session.durationMinutes}m
                               </span>
                             </div>
@@ -186,15 +186,15 @@ export function DashboardPage() {
             {/* Upcoming Tests List */}
             <section>
               <div className="flex items-center justify-between px-1 mb-4">
-                <h2 className="text-lg font-display font-semibold text-white flex items-center gap-2">
-                  <BookOpen className="w-4 h-4 text-neutral-400" />
+                <h2 className="text-lg font-display font-semibold text-foreground flex items-center gap-2">
+                  <BookOpen className="w-4 h-4 text-muted-foreground" />
                   Aankomende Toetsen
                 </h2>
               </div>
               <div className="space-y-3">
                 {upcomingTests.length === 0 ? (
-                  <div className="p-6 text-center border border-dashed border-white/10 rounded-2xl bg-white/5">
-                    <p className="text-neutral-500 text-sm">Geen toetsen in het vooruitzicht.</p>
+                  <div className="p-6 text-center border border-dashed border-border rounded-2xl bg-secondary/30">
+                    <p className="text-muted-foreground text-sm">Geen toetsen in het vooruitzicht.</p>
                   </div>
                 ) : (
                   upcomingTests.slice(0, 3).map((test) => {
@@ -202,28 +202,28 @@ export function DashboardPage() {
                     return (
                       <div key={test.id} className="luxury-card p-5 rounded-2xl group hover:border-amber-500/30 transition-all duration-300">
                         <div className="flex justify-between items-start mb-3">
-                          <span className="text-[10px] font-bold uppercase tracking-wider text-amber-500 bg-amber-500/10 px-2 py-1 rounded-md border border-amber-500/20">
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-amber-600 dark:text-amber-500 bg-amber-500/10 px-2 py-1 rounded-md border border-amber-500/20">
                             {test.subject}
                           </span>
                           <StarRating rating={test.difficulty} className="opacity-50 group-hover:opacity-100 transition-opacity" />
                         </div>
-                        <h3 className="text-lg font-display font-bold text-white mb-1 group-hover:text-amber-100 transition-colors">
+                        <h3 className="text-lg font-display font-bold text-foreground mb-1 group-hover:text-amber-700 dark:group-hover:text-amber-100 transition-colors">
                           {test.title}
                         </h3>
-                        <div className="flex items-center gap-2 text-neutral-400 text-xs mb-4">
+                        <div className="flex items-center gap-2 text-muted-foreground text-xs mb-4">
                           <CalendarIcon className="w-3.5 h-3.5" />
                           {format(parseISO(test.date), 'd MMMM yyyy', { locale: nl })}
                         </div>
-                        <div className="flex items-center gap-2 text-xs font-medium text-neutral-300 bg-white/5 px-3 py-2 rounded-lg border border-white/5">
+                        <div className="flex items-center gap-2 text-xs font-medium text-foreground bg-secondary/50 px-3 py-2 rounded-lg border border-border">
                           <BookOpen className="w-3.5 h-3.5 text-amber-500" />
-                          <span>Nog <span className="text-amber-400 font-bold">{daysLeft}</span> dagen</span>
+                          <span>Nog <span className="text-amber-600 dark:text-amber-400 font-bold">{daysLeft}</span> dagen</span>
                         </div>
                       </div>
                     );
                   })
                 )}
                 {upcomingTests.length > 3 && (
-                  <Button variant="ghost" className="w-full text-xs text-neutral-500 hover:text-white">
+                  <Button variant="ghost" className="w-full text-xs text-muted-foreground hover:text-foreground">
                     Bekijk alle {upcomingTests.length} toetsen <ArrowRight className="w-3 h-3 ml-1" />
                   </Button>
                 )}

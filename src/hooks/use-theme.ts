@@ -1,11 +1,16 @@
 import { useState, useEffect } from 'react';
 export function useTheme() {
   const [isDark, setIsDark] = useState(() => {
-    // Check local storage first
+    if (typeof window === 'undefined') return true;
     const savedTheme = localStorage.getItem('theme');
-    // If saved, use it. If not, DEFAULT TO DARK (true) regardless of system preference
-    // This enforces the "Premium Dark" aesthetic by default
-    return savedTheme ? savedTheme === 'dark' : true;
+    if (savedTheme) {
+      return savedTheme === 'dark';
+    }
+    // Check system preference if no local preference exists
+    if (window.matchMedia) {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+    return true; // Fallback default
   });
   useEffect(() => {
     const root = window.document.documentElement;

@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import { 
-  format, 
-  addMonths, 
-  subMonths, 
-  startOfMonth, 
-  endOfMonth, 
-  startOfWeek, 
-  endOfWeek, 
-  isSameMonth, 
-  isSameDay, 
-  eachDayOfInterval, 
-  isToday, 
-  parseISO 
+import {
+  format,
+  addMonths,
+  subMonths,
+  startOfMonth,
+  endOfMonth,
+  startOfWeek,
+  endOfWeek,
+  isSameMonth,
+  isSameDay,
+  eachDayOfInterval,
+  isToday,
+  parseISO
 } from 'date-fns';
 import { nl } from 'date-fns/locale';
 import { ChevronLeft, ChevronRight, Calendar as CalendarIcon } from 'lucide-react';
@@ -48,24 +48,24 @@ export function DashboardCalendar({ tests, sessions, className }: DashboardCalen
       <div className="flex items-center justify-between mb-8">
         <div className="flex items-center gap-3">
           <CalendarIcon className="w-5 h-5 text-amber-500" />
-          <h2 className="text-2xl font-display font-semibold text-white capitalize">
+          <h2 className="text-2xl font-display font-semibold text-foreground capitalize">
             {format(currentDate, 'MMMM yyyy', { locale: nl })}
           </h2>
         </div>
         <div className="flex items-center gap-1">
-          <Button 
-            variant="ghost" 
-            size="icon" 
+          <Button
+            variant="ghost"
+            size="icon"
             onClick={prevMonth}
-            className="h-8 w-8 text-neutral-400 hover:text-white hover:bg-white/5 rounded-full"
+            className="h-8 w-8 text-muted-foreground hover:text-foreground hover:bg-secondary rounded-full"
           >
             <ChevronLeft className="w-5 h-5" />
           </Button>
-          <Button 
-            variant="ghost" 
-            size="icon" 
+          <Button
+            variant="ghost"
+            size="icon"
             onClick={nextMonth}
-            className="h-8 w-8 text-neutral-400 hover:text-white hover:bg-white/5 rounded-full"
+            className="h-8 w-8 text-muted-foreground hover:text-foreground hover:bg-secondary rounded-full"
           >
             <ChevronRight className="w-5 h-5" />
           </Button>
@@ -76,7 +76,7 @@ export function DashboardCalendar({ tests, sessions, className }: DashboardCalen
         {/* Weekday Headers */}
         <div className="grid grid-cols-7 mb-4">
           {weekDays.map((day) => (
-            <div key={day} className="text-center text-xs font-medium text-neutral-500 uppercase tracking-wider">
+            <div key={day} className="text-center text-xs font-medium text-muted-foreground uppercase tracking-wider">
               {day}
             </div>
           ))}
@@ -89,23 +89,22 @@ export function DashboardCalendar({ tests, sessions, className }: DashboardCalen
             const isDayToday = isToday(day);
             const hasTest = dayTests.length > 0;
             const hasSession = daySessions.length > 0;
-            const isCompletedSession = hasSession && daySessions.every(s => s.isCompleted);
             return (
               <div
                 key={day.toString()}
                 className={cn(
                   "relative p-2 rounded-xl border transition-all duration-300 flex flex-col justify-between min-h-[80px] group",
                   !isCurrentMonth && "opacity-30 grayscale",
-                  isDayToday 
-                    ? "bg-amber-500/5 border-amber-500/50 shadow-[0_0_15px_-5px_rgba(245,158,11,0.3)]" 
-                    : "bg-white/[0.02] border-white/5 hover:bg-white/5 hover:border-white/10",
+                  isDayToday
+                    ? "bg-amber-500/5 border-amber-500/50 shadow-[0_0_15px_-5px_rgba(245,158,11,0.3)]"
+                    : "bg-secondary/20 border-border hover:bg-secondary/50 hover:border-border/80",
                   hasTest && "border-amber-500/80 bg-amber-500/10"
                 )}
               >
                 <div className="flex justify-between items-start">
                   <span className={cn(
                     "text-sm font-medium",
-                    isDayToday ? "text-amber-400" : "text-neutral-400 group-hover:text-neutral-200"
+                    isDayToday ? "text-amber-600 dark:text-amber-400" : "text-muted-foreground group-hover:text-foreground"
                   )}>
                     {format(day, 'd')}
                   </span>
@@ -117,16 +116,16 @@ export function DashboardCalendar({ tests, sessions, className }: DashboardCalen
                 {/* Session Dots */}
                 <div className="flex gap-1 mt-auto">
                   {daySessions.slice(0, 3).map((session, i) => (
-                    <div 
+                    <div
                       key={i}
                       className={cn(
                         "w-1 h-1 rounded-full",
-                        session.isCompleted ? "bg-amber-500/50" : "bg-neutral-600"
+                        session.isCompleted ? "bg-amber-500/50" : "bg-neutral-400 dark:bg-neutral-600"
                       )}
                     />
                   ))}
                   {daySessions.length > 3 && (
-                    <div className="w-1 h-1 rounded-full bg-neutral-700" />
+                    <div className="w-1 h-1 rounded-full bg-neutral-400 dark:bg-neutral-700" />
                   )}
                 </div>
               </div>
@@ -135,13 +134,13 @@ export function DashboardCalendar({ tests, sessions, className }: DashboardCalen
         </div>
       </div>
       {/* Legend */}
-      <div className="mt-6 flex items-center gap-6 text-xs text-neutral-500">
+      <div className="mt-6 flex items-center gap-6 text-xs text-muted-foreground">
         <div className="flex items-center gap-2">
           <div className="w-2 h-2 rounded-full bg-amber-500 shadow-[0_0_5px_rgba(245,158,11,0.5)]" />
           <span>Toets</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-2 h-2 rounded-full bg-neutral-600" />
+          <div className="w-2 h-2 rounded-full bg-neutral-400 dark:bg-neutral-600" />
           <span>Leersessie</span>
         </div>
         <div className="flex items-center gap-2">

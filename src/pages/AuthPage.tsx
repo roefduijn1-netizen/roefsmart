@@ -46,7 +46,7 @@ export function AuthPage() {
           <div className="inline-flex items-center justify-center w-20 h-20 mb-8 rounded-2xl bg-gradient-to-br from-amber-300 via-amber-500 to-amber-700 shadow-[0_0_40px_-10px_rgba(245,158,11,0.5)]">
             <Crown className="w-10 h-10 text-black fill-black/10" />
           </div>
-          <h1 className="text-5xl md:text-6xl font-display font-bold text-white mb-4 tracking-tighter">
+          <h1 className="text-5xl md:text-6xl font-display font-bold text-foreground mb-4 tracking-tighter">
             ROEFSMART
           </h1>
           <p className="text-amber-500/80 text-sm font-medium tracking-[0.3em] uppercase">
@@ -63,7 +63,7 @@ export function AuthPage() {
             <form onSubmit={handleLogin} className="space-y-5">
               <div className="space-y-4 text-left">
                 <div>
-                  <label className="text-xs text-neutral-500 ml-1 mb-1.5 block font-medium">NAAM</label>
+                  <label className="text-xs text-muted-foreground ml-1 mb-1.5 block font-medium">Naam</label>
                   <Input
                     placeholder="Jouw Naam"
                     value={name}
@@ -72,7 +72,7 @@ export function AuthPage() {
                   />
                 </div>
                 <div>
-                  <label className="text-xs text-neutral-500 ml-1 mb-1.5 block font-medium">E-MAIL</label>
+                  <label className="text-xs text-muted-foreground ml-1 mb-1.5 block font-medium">E-mailadres</label>
                   <Input
                     type="email"
                     placeholder="student@voorbeeld.nl"
@@ -88,7 +88,7 @@ export function AuthPage() {
                 disabled={isLoading}
                 className="luxury-button w-full h-14 text-base rounded-xl mt-4"
               >
-                {isLoading ? 'Verifiëren...' : 'Betreed Heiligdom'}
+                {isLoading ? 'Verifiëren...' : 'Inloggen'}
                 {!isLoading && <ArrowRight className="w-4 h-4 ml-2" />}
               </Button>
             </form>
@@ -98,9 +98,9 @@ export function AuthPage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6 }}
-          className="mt-12 text-xs text-neutral-600 font-light tracking-wide relative z-10"
+          className="mt-12 text-xs text-muted-foreground font-light tracking-wide relative z-10"
         >
-          Door binnen te gaan, committeer je je aan <span className="text-neutral-400">focus</span> en <span className="text-neutral-400">discipline</span>.
+          Log in om je studieplanning te beheren.
         </motion.p>
       </div>
     </AurumLayout>
