@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Save, Moon, Sun, Image as ImageIcon, Loader2, Bell } from 'lucide-react';
+import { Save, Moon, Sun, Image as ImageIcon, Loader2, Bell, AlertCircle } from 'lucide-react';
 import { api } from '@/lib/api-client';
 import { User } from '@shared/types';
 import { AurumLayout } from '@/components/layout/AurumLayout';
@@ -20,10 +20,11 @@ export function SettingsPage() {
   const userId = localStorage.getItem('aurum_user_id');
   const [avatarUrl, setAvatarUrl] = useState('');
   const [name, setName] = useState('');
-  const { data: user, isLoading } = useQuery({
+  const { data: user, isLoading, isError, refetch } = useQuery({
     queryKey: ['user', userId],
     queryFn: () => api<User>(`/api/users/${userId}`),
     enabled: !!userId,
+    retry: 1,
   });
   useEffect(() => {
     if (user) {
@@ -54,7 +55,6 @@ export function SettingsPage() {
     if (checked) {
       await requestPermission();
     } else {
-      // We can't programmatically revoke permission in browser, but we can tell user
       toast.info('Je kunt meldingen uitschakelen in je browserinstellingen.');
     }
   };
@@ -63,6 +63,18 @@ export function SettingsPage() {
       <AurumLayout>
         <div className="flex items-center justify-center min-h-[60vh]">
           <Loader2 className="w-8 h-8 text-amber-500 animate-spin" />
+        </div>
+      </AurumLayout>
+    );
+  }
+  if (isError || !user) {
+    return (
+      <AurumLayout>
+        <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4 space-y-4">
+          <AlertCircle className="w-10 h-10 text-red-500" />
+          <h2 className="text-xl font-bold text-white">Fout bij laden</h2>
+          <p className="text-neutral-400">Kon instellingen niet laden.</p>
+          <Button onClick={() => refetch()} variant="outline">Opnieuw proberen</Button>
         </div>
       </AurumLayout>
     );

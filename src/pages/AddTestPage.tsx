@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, CheckCircle2, Search, Calendar as CalendarIcon, BookOpen, BarChart3 } from 'lucide-react';
@@ -24,6 +24,11 @@ export function AddTestPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const userId = localStorage.getItem('aurum_user_id');
+  useEffect(() => {
+    if (!userId) {
+      navigate('/auth');
+    }
+  }, [userId, navigate]);
   const handleNext = () => {
     if (step === 'subject' && subject) setStep('date');
     else if (step === 'date' && date) setStep('difficulty');
@@ -87,7 +92,6 @@ export function AddTestPage() {
               <div className="flex items-center gap-4">
                 {steps.map((s, i) => {
                   const isActive = steps.findIndex(x => x.id === step) >= i;
-                  const isCurrent = s.id === step;
                   const Icon = s.icon;
                   return (
                     <div key={s.id} className="flex items-center gap-2">

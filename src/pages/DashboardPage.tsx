@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
-import { CheckCircle, Clock, BookOpen, PartyPopper, Calendar as CalendarIcon, Plus, ArrowRight } from 'lucide-react';
+import { CheckCircle, Clock, BookOpen, PartyPopper, Calendar as CalendarIcon, Plus, ArrowRight, AlertCircle, Loader2, LogOut } from 'lucide-react';
 import { api } from '@/lib/api-client';
 import { User } from '@shared/types';
 import { getGreeting } from '@/lib/aurum-utils';
@@ -21,11 +21,12 @@ export function DashboardPage() {
   useEffect(() => {
     if (!userId) navigate('/auth');
   }, [userId, navigate]);
-  const { data: user, isLoading } = useQuery({
+  const { data: user, isLoading, isError, refetch } = useQuery({
     queryKey: ['user', userId],
     queryFn: () => api<User>(`/api/users/${userId}`),
     enabled: !!userId,
     staleTime: 60000,
+    retry: 1,
   });
   const toggleSession = useMutation({
     mutationFn: async ({ testId, sessionId }: { testId: string; sessionId: string }) => {
@@ -34,13 +35,44 @@ export function DashboardPage() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['user', userId] });
       toast.success('Voortgang bijgewerkt');
+    },
+    onError: () => {
+      toast.error('Kon voortgang niet opslaan');
     }
   });
+  // Error State
+  if (isError) {
+    return (
+      <AurumLayout>
+        <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4 space-y-6">
+          <div className="w-16 h-16 rounded-full bg-red-500/10 flex items-center justify-center border border-red-500/20">
+            <AlertCircle className="w-8 h-8 text-red-500" />
+          </div>
+          <div className="space-y-2">
+            <h2 className="text-2xl font-display font-bold text-white">Er is een fout opgetreden</h2>
+            <p className="text-neutral-400 max-w-md mx-auto">
+              We konden je gegevens niet laden. Dit kan komen door een verbindingsprobleem of omdat je sessie is verlopen.
+            </p>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Button onClick={() => refetch()} variant="outline" className="border-neutral-700 hover:bg-neutral-800">
+              Opnieuw proberen
+            </Button>
+            <Button onClick={() => navigate('/auth')} className="luxury-button">
+              <LogOut className="w-4 h-4 mr-2" />
+              Opnieuw inloggen
+            </Button>
+          </div>
+        </div>
+      </AurumLayout>
+    );
+  }
+  // Loading State
   if (isLoading || !user) {
     return (
       <AurumLayout>
         <div className="flex items-center justify-center min-h-[60vh]">
-          <div className="w-10 h-10 border-2 border-amber-500 border-t-transparent rounded-full animate-spin" />
+          <Loader2 className="w-10 h-10 text-amber-500 animate-spin" />
         </div>
       </AurumLayout>
     );

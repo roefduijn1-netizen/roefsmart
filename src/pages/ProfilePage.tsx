@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { Trophy, Target, LogOut } from 'lucide-react';
+import { Trophy, Target, LogOut, Loader2, AlertCircle } from 'lucide-react';
 import { api } from '@/lib/api-client';
 import { User } from '@shared/types';
 import { AurumLayout } from '@/components/layout/AurumLayout';
@@ -9,16 +9,39 @@ import { Button } from '@/components/ui/button';
 export function ProfilePage() {
   const navigate = useNavigate();
   const userId = localStorage.getItem('aurum_user_id');
-  const { data: user } = useQuery({
+  const { data: user, isLoading, isError } = useQuery({
     queryKey: ['user', userId],
     queryFn: () => api<User>(`/api/users/${userId}`),
     enabled: !!userId,
+    retry: 1,
   });
   const handleLogout = () => {
     localStorage.removeItem('aurum_user_id');
     navigate('/auth');
   };
-  if (!user) return null;
+  if (isLoading) {
+    return (
+      <AurumLayout>
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <Loader2 className="w-10 h-10 text-amber-500 animate-spin" />
+        </div>
+      </AurumLayout>
+    );
+  }
+  if (isError || !user) {
+    return (
+      <AurumLayout>
+        <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4 space-y-4">
+          <AlertCircle className="w-12 h-12 text-red-500 mb-2" />
+          <h2 className="text-xl font-bold text-white">Profiel niet gevonden</h2>
+          <p className="text-neutral-400 mb-4">Er is een probleem met het laden van je profiel.</p>
+          <Button onClick={() => navigate('/')} variant="outline">
+            Terug naar Dashboard
+          </Button>
+        </div>
+      </AurumLayout>
+    );
+  }
   const totalTests = user.tests.length;
   const totalSessions = user.tests.reduce((acc, t) => acc + t.sessions.length, 0);
   const completedSessions = user.tests.reduce((acc, t) => acc + t.sessions.filter(s => s.isCompleted).length, 0);
