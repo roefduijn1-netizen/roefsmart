@@ -4,18 +4,8 @@ export interface ApiResponse<T = unknown> {
   error?: string;
 }
 export type DifficultyLevel = 1 | 2 | 3 | 4 | 5;
-export type Subject =
-  | 'Mathematics'
-  | 'Physics'
-  | 'Chemistry'
-  | 'Biology'
-  | 'History'
-  | 'Literature'
-  | 'Languages'
-  | 'Computer Science'
-  | 'Art'
-  | 'Economics'
-  | 'Other';
+// Relaxed to string to support expanded list and custom entries
+export type Subject = string;
 export interface StudySession {
   id: string;
   date: string; // ISO Date String

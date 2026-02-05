@@ -23,10 +23,10 @@ export function AuthPage() {
         body: JSON.stringify({ email, name })
       });
       localStorage.setItem('aurum_user_id', user.id);
-      toast.success(`Welcome back, ${user.name}`);
+      toast.success(`Welkom terug, ${user.name}`);
       navigate('/');
     } catch (error) {
-      toast.error('Failed to login. Please try again.');
+      toast.error('Inloggen mislukt. Probeer het opnieuw.');
       console.error(error);
     } finally {
       setIsLoading(false);
@@ -35,7 +35,7 @@ export function AuthPage() {
   return (
     <AurumLayout showNav={false}>
       <div className="flex flex-col items-center justify-center min-h-screen px-6 py-12 text-center">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -48,10 +48,10 @@ export function AuthPage() {
             Aurum Study
           </h1>
           <p className="text-neutral-400 text-lg font-light">
-            Academic excellence, refined.
+            Academische excellentie, verfijnd.
           </p>
         </motion.div>
-        <motion.form 
+        <motion.form
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.8 }}
@@ -59,37 +59,37 @@ export function AuthPage() {
           className="w-full max-w-sm space-y-4"
         >
           <div className="space-y-2 text-left">
-            <Input 
-              placeholder="Your Name" 
+            <Input
+              placeholder="Jouw Naam"
               value={name}
               onChange={(e) => setName(e.target.value)}
               className="h-12 bg-neutral-900/50 border-neutral-800 focus:border-amber-500/50 transition-colors"
             />
-            <Input 
-              type="email" 
-              placeholder="Email Address" 
+            <Input
+              type="email"
+              placeholder="E-mailadres"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
               className="h-12 bg-neutral-900/50 border-neutral-800 focus:border-amber-500/50 transition-colors"
             />
           </div>
-          <Button 
-            type="submit" 
+          <Button
+            type="submit"
             disabled={isLoading}
             className="w-full h-12 text-base font-medium bg-amber-500 hover:bg-amber-600 text-black transition-all duration-300 shadow-[0_0_20px_-5px_rgba(245,158,11,0.4)]"
           >
-            {isLoading ? 'Unlocking...' : 'Enter Sanctuary'}
+            {isLoading ? 'Ontgrendelen...' : 'Betreed Heiligdom'}
             {!isLoading && <ArrowRight className="w-4 h-4 ml-2" />}
           </Button>
         </motion.form>
-        <motion.p 
+        <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6 }}
           className="mt-8 text-xs text-neutral-600"
         >
-          By entering, you commit to focus and discipline.
+          Door binnen te gaan, committeer je je aan focus en discipline.
         </motion.p>
       </div>
     </AurumLayout>

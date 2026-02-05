@@ -37,27 +37,27 @@ export function ProfilePage() {
             )}
           </div>
           <h1 className="text-2xl font-bold text-white">{user.name}</h1>
-          <p className="text-neutral-500 text-sm">Scholar</p>
+          <p className="text-neutral-500 text-sm">Student</p>
         </div>
         <div className="grid grid-cols-2 gap-4 mb-8">
           <StatCard
             icon={<Target className="w-5 h-5 text-amber-400" />}
-            label="Tests Active"
+            label="Actieve Toetsen"
             value={totalTests.toString()}
           />
           <StatCard
             icon={<Trophy className="w-5 h-5 text-amber-400" />}
-            label="Completion"
+            label="Voltooid"
             value={`${completionRate}%`}
           />
           <StatCard
             icon={<Flame className="w-5 h-5 text-amber-400" />}
-            label="Sessions Done"
+            label="Sessies Gedaan"
             value={completedSessions.toString()}
           />
           <StatCard
             icon={<Target className="w-5 h-5 text-amber-400" />}
-            label="Total Planned"
+            label="Totaal Gepland"
             value={totalSessions.toString()}
           />
         </div>
@@ -65,12 +65,12 @@ export function ProfilePage() {
           <h3 className="text-sm font-medium text-neutral-400 uppercase tracking-wider">Account</h3>
           <div className="p-4 rounded-xl bg-neutral-900/50 border border-neutral-800">
             <div className="flex justify-between items-center mb-2">
-              <span className="text-neutral-400 text-sm">Email</span>
+              <span className="text-neutral-400 text-sm">E-mail</span>
               <span className="text-white text-sm">{user.email}</span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-neutral-400 text-sm">Member Since</span>
-              <span className="text-white text-sm">{new Date(user.createdAt || Date.now()).toLocaleDateString()}</span>
+              <span className="text-neutral-400 text-sm">Lid Sinds</span>
+              <span className="text-white text-sm">{new Date(user.createdAt || Date.now()).toLocaleDateString('nl-NL')}</span>
             </div>
           </div>
           <Button
@@ -79,7 +79,7 @@ export function ProfilePage() {
             className="w-full border-red-900/30 text-red-400 hover:bg-red-950/30 hover:text-red-300"
           >
             <LogOut className="w-4 h-4 mr-2" />
-            Sign Out
+            Uitloggen
           </Button>
         </div>
       </div>

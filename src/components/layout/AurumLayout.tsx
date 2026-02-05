@@ -28,9 +28,9 @@ export function AurumLayout({ children, showNav = true }: AurumLayoutProps) {
           <div className="w-full max-w-md bg-neutral-900/80 backdrop-blur-xl border-t border-white/10 pointer-events-auto pb-6">
             <div className="flex items-center justify-around h-16 px-2">
               <NavItem to="/" icon={<Calendar className="w-6 h-6" />} label="Agenda" />
-              <NavItem to="/add" icon={<PlusCircle className="w-8 h-8 text-amber-400" />} label="Add" isPrimary />
-              <NavItem to="/profile" icon={<UserIcon className="w-6 h-6" />} label="Profile" />
-              <NavItem to="/settings" icon={<Settings className="w-6 h-6" />} label="Settings" />
+              <NavItem to="/add" icon={<PlusCircle className="w-8 h-8 text-amber-400" />} label="Toevoegen" isPrimary />
+              <NavItem to="/profile" icon={<UserIcon className="w-6 h-6" />} label="Profiel" />
+              <NavItem to="/settings" icon={<Settings className="w-6 h-6" />} label="Instellingen" />
             </div>
           </div>
         </nav>

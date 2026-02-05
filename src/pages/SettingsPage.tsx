@@ -38,10 +38,10 @@ export function SettingsPage() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['user', userId] });
-      toast.success('Settings saved successfully');
+      toast.success('Instellingen opgeslagen');
     },
     onError: () => {
-      toast.error('Failed to save settings');
+      toast.error('Kon instellingen niet opslaan');
     }
   });
   const handleSave = () => {
@@ -61,15 +61,15 @@ export function SettingsPage() {
     <AurumLayout>
       <div className="px-6 py-8 space-y-8">
         <header>
-          <h1 className="text-3xl font-display font-bold text-white mb-2">Settings</h1>
-          <p className="text-neutral-400 text-sm">Customize your sanctuary.</p>
+          <h1 className="text-3xl font-display font-bold text-white mb-2">Instellingen</h1>
+          <p className="text-neutral-400 text-sm">Pas je heiligdom aan.</p>
         </header>
         <section className="space-y-6">
           {/* Profile Section */}
           <div className="space-y-4">
             <h2 className="text-lg font-semibold text-white flex items-center gap-2">
               <ImageIcon className="w-5 h-5 text-amber-400" />
-              Profile Appearance
+              Profiel Uiterlijk
             </h2>
             <div className="p-6 rounded-2xl bg-neutral-900/50 border border-neutral-800 space-y-4">
               <div className="flex items-center gap-4">
@@ -88,13 +88,13 @@ export function SettingsPage() {
                     id="avatar-url"
                     value={avatarUrl}
                     onChange={(e) => setAvatarUrl(e.target.value)}
-                    placeholder="https://example.com/image.png"
+                    placeholder="https://voorbeeld.nl/afbeelding.png"
                     className="bg-neutral-950/50 border-neutral-800 focus:border-amber-500/50"
                   />
                 </div>
               </div>
               <div className="space-y-1">
-                <Label htmlFor="display-name" className="text-neutral-300">Display Name</Label>
+                <Label htmlFor="display-name" className="text-neutral-300">Weergavenaam</Label>
                 <Input
                   id="display-name"
                   value={name}
@@ -108,12 +108,12 @@ export function SettingsPage() {
           <div className="space-y-4">
             <h2 className="text-lg font-semibold text-white flex items-center gap-2">
               {isDark ? <Moon className="w-5 h-5 text-amber-400" /> : <Sun className="w-5 h-5 text-amber-400" />}
-              Theme
+              Thema
             </h2>
             <div className="p-6 rounded-2xl bg-neutral-900/50 border border-neutral-800 flex items-center justify-between">
               <div className="space-y-0.5">
-                <div className="text-white font-medium">Dark Mode</div>
-                <div className="text-xs text-neutral-500">Toggle application theme</div>
+                <div className="text-white font-medium">Donkere Modus</div>
+                <div className="text-xs text-neutral-500">Schakel applicatie thema</div>
               </div>
               <Switch
                 checked={isDark}
@@ -130,12 +130,12 @@ export function SettingsPage() {
             {updateUserMutation.isPending ? (
               <>
                 <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                Saving...
+                Opslaan...
               </>
             ) : (
               <>
                 <Save className="w-4 h-4 mr-2" />
-                Save Changes
+                Opslaan
               </>
             )}
           </Button>
