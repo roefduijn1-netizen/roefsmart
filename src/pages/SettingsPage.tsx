@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Save, Image as ImageIcon, Loader2, Bell, AlertCircle } from 'lucide-react';
+import { Save, Image as ImageIcon, Loader2, Bell, AlertCircle, Share2, Info } from 'lucide-react';
 import { api } from '@/lib/api-client';
 import { User } from '@shared/types';
 import { AurumLayout } from '@/components/layout/AurumLayout';
@@ -54,6 +54,22 @@ export function SettingsPage() {
       await requestPermission();
     } else {
       toast.info('Je kunt meldingen uitschakelen in je browserinstellingen.');
+    }
+  };
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'ROEFSMART',
+          text: 'Mijn exclusieve studieplanner.',
+          url: window.location.origin,
+        });
+      } catch (error) {
+        console.log('Error sharing:', error);
+      }
+    } else {
+      navigator.clipboard.writeText(window.location.origin);
+      toast.success('Link gekopieerd naar klembord');
     }
   };
   if (isLoading) {
@@ -143,6 +159,31 @@ export function SettingsPage() {
                 onCheckedChange={handleNotificationToggle}
                 className="data-[state=checked]:bg-amber-500"
               />
+            </div>
+          </div>
+          {/* About Section */}
+          <div className="space-y-4">
+            <h2 className="text-lg font-semibold text-foreground flex items-center gap-2">
+              <Info className="w-5 h-5 text-amber-500" />
+              Over
+            </h2>
+            <div className="luxury-card p-6 rounded-2xl space-y-4">
+              <div className="flex justify-between items-center border-b border-white/5 pb-4">
+                <span className="text-muted-foreground text-sm">Versie</span>
+                <span className="text-amber-400 text-sm font-bold">v1.0.0 (Gold)</span>
+              </div>
+              <div className="flex justify-between items-center pt-2">
+                <span className="text-muted-foreground text-sm">Deel deze app</span>
+                <Button 
+                  onClick={handleShare}
+                  variant="outline" 
+                  size="sm"
+                  className="luxury-button-outline h-9 text-xs"
+                >
+                  <Share2 className="w-3.5 h-3.5 mr-2" />
+                  Delen
+                </Button>
+              </div>
             </div>
           </div>
           <div className="pt-4">
