@@ -59,48 +59,51 @@ export function SettingsPage() {
   }
   return (
     <AurumLayout>
-      <div className="px-6 py-8 space-y-8">
+      <div className="px-6 py-8 md:py-12 max-w-3xl mx-auto space-y-10">
         <header>
           <h1 className="text-3xl font-display font-bold text-white mb-2">Instellingen</h1>
           <p className="text-neutral-400 text-sm">Pas je heiligdom aan.</p>
         </header>
-        <section className="space-y-6">
+        <section className="space-y-8">
           {/* Profile Section */}
           <div className="space-y-4">
             <h2 className="text-lg font-semibold text-white flex items-center gap-2">
               <ImageIcon className="w-5 h-5 text-amber-400" />
               Profiel Uiterlijk
             </h2>
-            <div className="p-6 rounded-2xl bg-neutral-900/50 border border-neutral-800 space-y-4">
-              <div className="flex items-center gap-4">
-                <div className="relative w-16 h-16 rounded-full overflow-hidden bg-neutral-800 border border-neutral-700 flex-shrink-0">
+            <div className="p-6 md:p-8 rounded-2xl bg-neutral-900/50 border border-neutral-800 space-y-6">
+              <div className="flex flex-col md:flex-row md:items-start gap-6">
+                <div className="relative w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden bg-neutral-800 border border-neutral-700 flex-shrink-0 mx-auto md:mx-0 shadow-lg">
                   {avatarUrl ? (
                     <img src={avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-2xl font-bold text-neutral-500">
+                    <div className="w-full h-full flex items-center justify-center text-3xl font-bold text-neutral-500">
                       {name.charAt(0)}
                     </div>
                   )}
                 </div>
-                <div className="flex-1 space-y-1">
-                  <Label htmlFor="avatar-url" className="text-neutral-300">Avatar URL</Label>
-                  <Input
-                    id="avatar-url"
-                    value={avatarUrl}
-                    onChange={(e) => setAvatarUrl(e.target.value)}
-                    placeholder="https://voorbeeld.nl/afbeelding.png"
-                    className="bg-neutral-950/50 border-neutral-800 focus:border-amber-500/50"
-                  />
+                <div className="flex-1 space-y-4 w-full">
+                  <div className="space-y-2">
+                    <Label htmlFor="avatar-url" className="text-neutral-300">Avatar URL</Label>
+                    <Input
+                      id="avatar-url"
+                      value={avatarUrl}
+                      onChange={(e) => setAvatarUrl(e.target.value)}
+                      placeholder="https://voorbeeld.nl/afbeelding.png"
+                      className="bg-neutral-950/50 border-neutral-800 focus:border-amber-500/50 h-11"
+                    />
+                    <p className="text-[10px] text-neutral-500">Plak een directe link naar een afbeelding.</p>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="display-name" className="text-neutral-300">Weergavenaam</Label>
+                    <Input
+                      id="display-name"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      className="bg-neutral-950/50 border-neutral-800 focus:border-amber-500/50 h-11"
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="space-y-1">
-                <Label htmlFor="display-name" className="text-neutral-300">Weergavenaam</Label>
-                <Input
-                  id="display-name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="bg-neutral-950/50 border-neutral-800 focus:border-amber-500/50"
-                />
               </div>
             </div>
           </div>
@@ -111,7 +114,7 @@ export function SettingsPage() {
               Thema
             </h2>
             <div className="p-6 rounded-2xl bg-neutral-900/50 border border-neutral-800 flex items-center justify-between">
-              <div className="space-y-0.5">
+              <div className="space-y-1">
                 <div className="text-white font-medium">Donkere Modus</div>
                 <div className="text-xs text-neutral-500">Schakel applicatie thema</div>
               </div>
@@ -122,23 +125,25 @@ export function SettingsPage() {
               />
             </div>
           </div>
-          <Button
-            onClick={handleSave}
-            disabled={updateUserMutation.isPending}
-            className="w-full h-12 bg-amber-500 text-black hover:bg-amber-600 font-medium shadow-[0_0_20px_-5px_rgba(245,158,11,0.3)]"
-          >
-            {updateUserMutation.isPending ? (
-              <>
-                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                Opslaan...
-              </>
-            ) : (
-              <>
-                <Save className="w-4 h-4 mr-2" />
-                Opslaan
-              </>
-            )}
-          </Button>
+          <div className="pt-4">
+            <Button
+              onClick={handleSave}
+              disabled={updateUserMutation.isPending}
+              className="w-full md:w-auto md:min-w-[200px] h-12 bg-amber-500 text-black hover:bg-amber-600 font-medium shadow-[0_0_20px_-5px_rgba(245,158,11,0.3)] transition-all"
+            >
+              {updateUserMutation.isPending ? (
+                <>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  Opslaan...
+                </>
+              ) : (
+                <>
+                  <Save className="w-4 h-4 mr-2" />
+                  Opslaan
+                </>
+              )}
+            </Button>
+          </div>
         </section>
       </div>
     </AurumLayout>
