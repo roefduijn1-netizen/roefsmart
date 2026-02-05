@@ -1,6 +1,6 @@
 import React from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
-import { Calendar, PlusCircle, User as UserIcon, BookOpen } from 'lucide-react';
+import { NavLink } from 'react-router-dom';
+import { Calendar, PlusCircle, User as UserIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/sonner';
 interface AurumLayoutProps {
@@ -17,7 +17,7 @@ export function AurumLayout({ children, showNav = true }: AurumLayoutProps) {
       </div>
       {/* Main Content Area */}
       <main className={cn(
-        "relative z-10 min-h-screen pb-24 max-w-md mx-auto bg-background/50 shadow-2xl min-[450px]:border-x border-white/5", 
+        "relative z-10 min-h-screen pb-24 max-w-md mx-auto bg-background/50 shadow-2xl min-[450px]:border-x border-white/5",
         !showNav && "pb-0"
       )}>
         {children}
@@ -25,7 +25,7 @@ export function AurumLayout({ children, showNav = true }: AurumLayoutProps) {
       {/* Bottom Navigation */}
       {showNav && (
         <nav className="fixed bottom-0 left-0 right-0 z-50 flex justify-center pointer-events-none">
-          <div className="w-full max-w-md bg-neutral-900/80 backdrop-blur-xl border-t border-white/10 pointer-events-auto pb-safe">
+          <div className="w-full max-w-md bg-neutral-900/80 backdrop-blur-xl border-t border-white/10 pointer-events-auto pb-6">
             <div className="flex items-center justify-around h-16 px-2">
               <NavItem to="/" icon={<Calendar className="w-6 h-6" />} label="Agenda" />
               <NavItem to="/add" icon={<PlusCircle className="w-8 h-8 text-amber-400" />} label="Add" isPrimary />
