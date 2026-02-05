@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight, Crown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { api } from '@/lib/api-client';
@@ -23,10 +23,10 @@ export function AuthPage() {
         body: JSON.stringify({ email, name })
       });
       localStorage.setItem('aurum_user_id', user.id);
-      toast.success(`Welkom terug, ${user.name}`);
+      toast.success(`Welkom in ROEFSMART, ${user.name}`);
       navigate('/');
     } catch (error) {
-      toast.error('Inloggen mislukt. Probeer het opnieuw.');
+      toast.error('Toegang geweigerd. Probeer het opnieuw.');
       console.error(error);
     } finally {
       setIsLoading(false);
@@ -34,62 +34,73 @@ export function AuthPage() {
   };
   return (
     <AurumLayout showNav={false}>
-      <div className="flex flex-col items-center justify-center min-h-screen px-6 py-12 text-center">
+      <div className="flex flex-col items-center justify-center min-h-screen px-6 py-12 text-center relative overflow-hidden">
+        {/* Decorative Elements */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-amber-500/5 rounded-full blur-[120px] pointer-events-none" />
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="mb-12"
+          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-16 relative z-10"
         >
-          <div className="inline-flex items-center justify-center w-16 h-16 mb-6 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 shadow-lg shadow-amber-500/20">
-            <Sparkles className="w-8 h-8 text-white" />
+          <div className="inline-flex items-center justify-center w-20 h-20 mb-8 rounded-2xl bg-gradient-to-br from-amber-300 via-amber-500 to-amber-700 shadow-[0_0_40px_-10px_rgba(245,158,11,0.5)]">
+            <Crown className="w-10 h-10 text-black fill-black/10" />
           </div>
-          <h1 className="text-4xl font-display font-bold text-white mb-2 tracking-tight">
-            Aurum Study
+          <h1 className="text-5xl md:text-6xl font-display font-bold text-white mb-4 tracking-tighter">
+            ROEFSMART
           </h1>
-          <p className="text-neutral-400 text-lg font-light">
-            Academische excellentie, verfijnd.
+          <p className="text-amber-500/80 text-sm font-medium tracking-[0.3em] uppercase">
+            Exclusieve Academische Planning
           </p>
         </motion.div>
-        <motion.form
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3, duration: 0.8 }}
-          onSubmit={handleLogin}
-          className="w-full max-w-sm space-y-4"
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="w-full max-w-sm relative z-10"
         >
-          <div className="space-y-2 text-left">
-            <Input
-              placeholder="Jouw Naam"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="h-12 bg-neutral-900/50 border-neutral-800 focus:border-amber-500/50 transition-colors"
-            />
-            <Input
-              type="email"
-              placeholder="E-mailadres"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="h-12 bg-neutral-900/50 border-neutral-800 focus:border-amber-500/50 transition-colors"
-            />
+          <div className="luxury-card p-8 rounded-3xl">
+            <form onSubmit={handleLogin} className="space-y-5">
+              <div className="space-y-4 text-left">
+                <div>
+                  <label className="text-xs text-neutral-500 ml-1 mb-1.5 block font-medium">NAAM</label>
+                  <Input
+                    placeholder="Jouw Naam"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="luxury-input h-14 text-lg px-4 rounded-xl"
+                  />
+                </div>
+                <div>
+                  <label className="text-xs text-neutral-500 ml-1 mb-1.5 block font-medium">E-MAIL</label>
+                  <Input
+                    type="email"
+                    placeholder="student@voorbeeld.nl"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="luxury-input h-14 text-lg px-4 rounded-xl"
+                  />
+                </div>
+              </div>
+              <Button
+                type="submit"
+                disabled={isLoading}
+                className="luxury-button w-full h-14 text-base rounded-xl mt-4"
+              >
+                {isLoading ? 'Verifiëren...' : 'Betreed Heiligdom'}
+                {!isLoading && <ArrowRight className="w-4 h-4 ml-2" />}
+              </Button>
+            </form>
           </div>
-          <Button
-            type="submit"
-            disabled={isLoading}
-            className="w-full h-12 text-base font-medium bg-amber-500 hover:bg-amber-600 text-black transition-all duration-300 shadow-[0_0_20px_-5px_rgba(245,158,11,0.4)]"
-          >
-            {isLoading ? 'Ontgrendelen...' : 'Betreed Heiligdom'}
-            {!isLoading && <ArrowRight className="w-4 h-4 ml-2" />}
-          </Button>
-        </motion.form>
+        </motion.div>
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6 }}
-          className="mt-8 text-xs text-neutral-600"
+          className="mt-12 text-xs text-neutral-600 font-light tracking-wide relative z-10"
         >
-          Door binnen te gaan, committeer je je aan focus en discipline.
+          Door binnen te gaan, committeer je je aan <span className="text-neutral-400">focus</span> en <span className="text-neutral-400">discipline</span>.
         </motion.p>
       </div>
     </AurumLayout>

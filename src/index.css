@@ -30,24 +30,24 @@
     --chart-5: 27 87% 67%;
   }
   .dark {
-    --background: 0 0% 4%; /* Deep Black #0a0a0a */
+    --background: 0 0% 1.2%; /* #030303 - Deepest Black */
     --foreground: 0 0% 98%;
-    --card: 0 0% 7%; /* Slightly lighter black */
+    --card: 0 0% 4%; /* #0a0a0a */
     --card-foreground: 0 0% 98%;
-    --popover: 0 0% 7%;
+    --popover: 0 0% 4%;
     --popover-foreground: 0 0% 98%;
     --primary: 45 93% 47%; /* Gold */
     --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 12%;
+    --secondary: 0 0% 9%;
     --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 12%;
+    --muted: 0 0% 9%;
     --muted-foreground: 0 0% 60%;
-    --accent: 0 0% 12%;
+    --accent: 0 0% 9%;
     --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 16%;
-    --input: 0 0% 16%;
+    --border: 0 0% 12%;
+    --input: 0 0% 12%;
     --ring: 45 93% 47%;
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
@@ -66,16 +66,32 @@
   }
 }
 @layer utilities {
-    .glass-card {
-        @apply bg-neutral-900/60 backdrop-blur-xl border border-white/5 shadow-xl;
+    /* ROEFSMART Luxury Utilities */
+    .luxury-card {
+        @apply bg-[#0a0a0a]/80 backdrop-blur-2xl border border-white/5 shadow-2xl;
     }
-    .gold-glow {
-        box-shadow: 0 0 20px -5px rgba(251, 191, 36, 0.3);
+    .luxury-card-hover {
+        @apply transition-all duration-500 hover:border-amber-500/30 hover:shadow-[0_0_30px_-10px_rgba(251,191,36,0.15)] hover:-translate-y-1;
     }
-    .gold-border-glow {
-        @apply border border-amber-500/30 shadow-[0_0_15px_-3px_rgba(245,158,11,0.15)];
+    .luxury-glow {
+        box-shadow: 0 0 40px -10px rgba(251, 191, 36, 0.15);
     }
-    .text-gold-gradient {
-        @apply bg-clip-text text-transparent bg-gradient-to-r from-amber-200 via-amber-400 to-amber-500;
+    .luxury-border-glow {
+        @apply border border-amber-500/20 shadow-[0_0_15px_-3px_rgba(245,158,11,0.1)];
+    }
+    .text-gold-premium {
+        @apply bg-clip-text text-transparent bg-gradient-to-b from-amber-200 via-amber-400 to-amber-600;
+    }
+    .luxury-input {
+        @apply bg-[#0f0f0f] border-white/10 focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/20 text-white placeholder:text-neutral-700 transition-all duration-300;
+    }
+    .luxury-button {
+        @apply bg-gradient-to-r from-amber-400 to-amber-600 text-black font-bold hover:shadow-[0_0_25px_-5px_rgba(245,158,11,0.4)] hover:brightness-110 active:scale-95 transition-all duration-300 border-none;
+    }
+    .luxury-button-outline {
+        @apply bg-transparent border border-amber-500/30 text-amber-400 hover:bg-amber-500/10 hover:border-amber-500/60 hover:text-amber-300 transition-all duration-300;
+    }
+    .glass-panel {
+        @apply bg-black/40 backdrop-blur-xl border border-white/5;
     }
 }
